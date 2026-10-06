@@ -1,5 +1,19 @@
 # EcoBin
 
+## CAD build status
+
+FreeCAD native models live in `3D-Design/parts/` (one file per print-register ID), assemblies in `3D-Design/assemblies/`, renders in `media/renders/`. Generator scripts in `scripts/cad/` rebuild every file deterministically through the FreeCAD MCP (`exec(open('scripts/cad/<stage>.py').read())`); re-runs wipe and rebuild only their own documents.
+
+Locked layout (owner decisions): Ø300 × 350 mm envelope, 60 mm / 150 g max item, separate lift-out bins, shared lab printer (210 × 210 × 240 mm target).
+
+- [x] Stage 0 — `00_Master.FCStd`: shared `Params` spreadsheet + skeleton datums (carousel axis, drop axis, 3 datum planes, 4 index points). No printable solids.
+- [x] Stage 1 — frame / bearing / motor mount: `PR-001_BaseFrame`, `PR-013_BearingSeat` (Ø70 placeholder bore — bearing pick open), `PR-019_StepperMount` (NEMA-17 31 mm BCD), `PR-012_Hub` (Ø5 shaft bore + M3 set-screw drill).
+- [ ] Stage 2 — carrier quadrants, chambers A–D, clips.
+- [ ] Stage 3 — tray + trapdoor gate.
+- [ ] Stage 4 — sensor/camera/display mounts + trim.
+- [ ] Stage 5 — linked `EcoBin_Top` assembly.
+- [ ] Stage 6 — print release + spool roll-up.
+
 ## Buy the demonstrator BOM
 
 The current itemized bill of materials is [`docs/bom/EcoBin-Demonstrator-BOM.csv`](docs/bom/EcoBin-Demonstrator-BOM.csv). It covers purchased components, make/print parts, software, project files, and tools/access assumptions. **No preassembled electronics/project kits or combined load-cell/HX711 bundles are selected.** Retailers' unavoidable component pack sizes (for example, 10 LEDs or 10 resistors) are called out as packs, not treated as project kits.
