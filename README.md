@@ -8,8 +8,8 @@ Locked layout (owner decisions): Ø300 × 350 mm envelope, 60 mm / 150 g max ite
 
 - [x] Stage 0 — `00_Master.FCStd`: shared `Params` spreadsheet + skeleton datums (carousel axis, drop axis, 3 datum planes, 4 index points). No printable solids.
 - [x] Stage 1 — frame / bearing / motor mount: `PR-001_BaseFrame`, `PR-013_BearingSeat` (Ø70 placeholder bore — bearing pick open), `PR-019_StepperMount` (NEMA-17 31 mm BCD), `PR-012_Hub` (Ø5 shaft bore + M3 set-screw drill).
-- [ ] Stage 2 — carrier quadrants, chambers A–D, clips.
-- [ ] Stage 3 — tray + trapdoor gate.
+- [x] Stage 2 — carrier + chambers: `PR-011_Carrier_Q1–Q4` quadrants, `PR-014–017_Chamber_A–D` lift-out bins, `PR-018_Clips`.
+- [x] Stage 3 — tray + gate: `PR-005_TrayBody`, `PR-006_ScaleSupport` (cell M5 pattern TBD), `PR-007_Flap`, `PR-008_Hinges`, `PR-009_ServoMount` (ear slots TBD), `PR-010_Linkage`, `PR-004_DropGuide`.
 - [ ] Stage 4 — sensor/camera/display mounts + trim.
 - [ ] Stage 5 — linked `EcoBin_Top` assembly.
 - [ ] Stage 6 — print release + spool roll-up.
