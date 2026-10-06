@@ -621,9 +621,13 @@ The main carrier and chamber modules should be designed as separate FreeCAD part
 
 ### 11.4 CAD model organization
 
-- Create separate definitions for the stationary frame, tray, trapdoor, chute, camera/light mount, carousel, each chamber, motor bracket, and sensor mounts.
-- Use stable names such as `BaseFrame`, `TopDeck`, `InputTray`, `Trapdoor`, `DropGuide`, `Carousel`, `Chamber_A`, `Chamber_B`, `Chamber_C`, `Chamber_D`, `CameraMount`, and `StepperMount`.
-- Establish the rotary axis and drop-station reference as datum geometry before detailed features.
+Build every part as its own FreeCAD file, then combine them in a linked assembly at the end:
+
+- `3D-Design/parts/00_Master.FCStd` holds the shared `Params` spreadsheet (envelope, rotor diameter, station radius, openings, print segmentation) plus skeleton datum geometry: carousel Z-axis, drop-station point, 90° index pattern, deck planes. It contains no printable solids.
+- One file per printable part or split panel in `3D-Design/parts/` (e.g. `PR-011_Carrier_Q1.FCStd`), named after its print-register ID. Parts read interface dimensions from `00_Master` via cross-file expressions (`Master#Params.R_station`); they never dimension against each other.
+- Why separate files: a broken feature or topological-name break stays inside one small file; parts print straight from their own files; the lab can print one part while another is edited; chambers quadrants and panels iterate independently.
+- Subassemblies in `3D-Design/assemblies/` (e.g. `Carousel_ASM.FCStd`, `TrayGate_ASM.FCStd`) and one top `EcoBin_Top.FCStd`, all assembled with `App::Link` to the part files — never duplicated geometry. Moving/renaming a part file must be followed by re-resolving its links.
+- Establish the rotary axis and drop-station reference as datum geometry in `00_Master` before detailed features.
 - Use named parameters for overall envelope, rotor diameter, station radius, chamber spacing, tray opening, chamber opening, and print segmentation.
 - Keep imported electronics and purchased components separate from printed components.
 - Record the exact FreeCAD version and document units when CAD work begins.
