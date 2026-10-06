@@ -1,0 +1,2 @@
+requirement_id,quantity,configuration,event,acceptance_limit,simulation_evidence,verification_evidence,physical_evidence,status
+REQ-DYN-017,endpoint settling,PAYLOAD-5KG,T-17,project requirement,CORR-DYN-017,STEP-STUDY-017,DATA-DYN-VAL-017,pass

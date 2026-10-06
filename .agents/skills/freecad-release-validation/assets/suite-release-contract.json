@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "product": {
+    "part_number": "TBD",
+    "revision": "TBD",
+    "configuration": "BASE",
+    "maturity": "production_candidate",
+    "acceptance_authority_role": "TBD"
+  },
+  "scope": {
+    "analysis": false,
+    "assembly": false,
+    "robotics": false,
+    "cam": false,
+    "additive": false,
+    "purchased_components": false
+  },
+  "domains": [],
+  "derivatives": [],
+  "approvals": []
+}

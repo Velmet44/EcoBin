@@ -1,0 +1,58 @@
+{
+  "profile_id": "REPLACE_WITH_CONTROLLED_MACHINE_PROFILE",
+  "machine": "TBD",
+  "controller": "TBD",
+  "process": "mill",
+  "postprocessor": {
+    "id": "TBD",
+    "revision": "TBD",
+    "options": []
+  },
+  "units": "mm",
+  "max_spindle_rpm": null,
+  "max_tool_number": null,
+  "spindle_mode": "G97",
+  "max_css": null,
+  "feed_limits": {
+    "G94": null,
+    "G95": null,
+    "G93": null
+  },
+  "max_linear_feed_rate": null,
+  "axis_limits_mm": {
+    "x": {
+      "min": null,
+      "max": null
+    },
+    "y": {
+      "min": null,
+      "max": null
+    },
+    "z": {
+      "min": null,
+      "max": null
+    }
+  },
+  "safe_z_machine_mm": null,
+  "feed_mode": "G94",
+  "allowed_work_offsets": [
+    "G54"
+  ],
+  "work_offset_origins_machine_mm": {
+    "G54": {
+      "x": null,
+      "y": null,
+      "z": null
+    }
+  },
+  "allow_unit_switch": false,
+  "allow_incremental_mode": false,
+  "required_codes": [],
+  "forbidden_codes": [
+    "G92"
+  ],
+  "notes": [
+    "This example is not approved for machine use.",
+    "Populate from the exact controller manual and shop standard."
+  ]
+}

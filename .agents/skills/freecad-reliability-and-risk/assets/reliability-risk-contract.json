@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "product": {
+    "part_number": "ROBOT-001",
+    "revision": "A",
+    "configurations": ["PAYLOAD-5KG"],
+    "maturity": "production_candidate",
+    "intended_use": "industrial pick-and-place mechanism",
+    "foreseeable_misuse": ["maintenance with stored gravitational energy"],
+    "lifecycle_stages": ["transport", "installation", "operation", "recovery", "maintenance", "decommissioning"],
+    "acceptance_authority_role": "product safety and reliability authority",
+    "residual_risk_authority_roles": ["product safety authority"]
+  },
+  "method": {
+    "identifier": "ORG-FMEA-RISK-001",
+    "revision": "C",
+    "rating_scale": "1-10 controlled organizational scale",
+    "risk_acceptance_rule": "severity 9-10 and safety linkage require authority review regardless of RPN"
+  },
+  "functions": [
+    {
+      "id": "FUN-HOLD-Z",
+      "item_id": "AXIS-Z",
+      "configuration": "PAYLOAD-5KG",
+      "statement": "hold vertical payload within permitted drop after power loss",
+      "requirement_id": "REQ-SAFE-HOLD-001",
+      "safe_state": "mechanical brake engaged",
+      "verification_id": "TEST-POWERLOSS-001"
+    }
+  ],
+  "process_steps": [
+    {
+      "id": "PROC-BRAKE-INSTALL",
+      "statement": "install and verify vertical-axis brake",
+      "output_characteristic": "brake torque and feedback verified",
+      "control_plan_id": "CP-BRAKE-001"
+    }
+  ],
+  "failure_modes": [
+    {
+      "id": "FM-BRAKE-NO-APPLY",
+      "analysis_type": "DFMEA",
+      "function_id": "FUN-HOLD-Z",
+      "process_step_id": null,
+      "item_id": "BRAKE-Z",
+      "configuration": "PAYLOAD-5KG",
+      "lifecycle_state": "operation",
+      "failure_mode": "brake does not apply on power loss",
+      "safety_related": true,
+      "local_effect": "axis is not held",
+      "next_effect": "vertical carriage descends",
+      "end_effect": "impact or crush hazard",
+      "causes": ["contamination or coil/release mechanism fault"],
+      "prevention_controls": ["normally engaged brake sized for hot end-of-life state"],
+      "detection_controls": ["brake feedback and periodic proof test"],
+      "severity": 10,
+      "occurrence": 2,
+      "detection": 3,
+      "rpn": 60,
+      "rating_rationale": "ORG-FMEA-RISK-001 worksheet FM-BRAKE-NO-APPLY",
+      "classification_basis": "safety classification reviewed against HZ-GRAVITY-DROP",
+      "classified_by": "product safety engineer",
+      "hazard_ids": ["HZ-GRAVITY-DROP"],
+      "requirement_ids": ["REQ-SAFE-HOLD-001"],
+      "verification_ids": ["TEST-POWERLOSS-001"],
+      "action_ids": ["ACT-BRAKE-PROOF"]
+    }
+  ],
+  "hazards": [
+    {
+      "id": "HZ-GRAVITY-DROP",
+      "lifecycle_stage": "operation",
+      "hazard": "stored gravitational energy",
+      "sequence": "power lost; holding path fails; carriage descends into occupied zone",
+      "exposed": "operator or maintenance technician",
+      "harm": "crush injury",
+      "initial_risk": "high per ORG-FMEA-RISK-001",
+      "measure_ids": ["RM-BRAKE"],
+      "residual_risk": "low with verified brake and guarded access",
+      "residual_risk_approval_id": "RRA-001"
+    }
+  ],
+  "hazard_analysis": {
+    "applicable": true,
+    "method": "controlled product hazard analysis procedure",
+    "lifecycle_stages_reviewed": ["transport", "installation", "operation", "recovery", "maintenance", "decommissioning"],
+    "approved_by": "A. Safety",
+    "approved_by_role": "product safety authority",
+    "approval_date": "2026-07-24"
+  },
+  "risk_reduction_measures": [
+    {
+      "id": "RM-BRAKE",
+      "hierarchy": "inherently safer design",
+      "requirement_id": "REQ-SAFE-HOLD-001",
+      "implementation_artifact": "BRAKE-Z revision B",
+      "verification_id": "TEST-POWERLOSS-001",
+      "status": "verified",
+      "introduced_hazard_review": "no new uncontrolled hazard"
+    }
+  ],
+  "actions": [
+    {
+      "id": "ACT-BRAKE-PROOF",
+      "description": "add hot end-of-life brake proof test and feedback fault injection",
+      "owner": "J. Engineer",
+      "due_date": "2026-07-20",
+      "status": "closed",
+      "implementation_artifact": "TP-BRAKE-002 revision B",
+      "verification_evidence": "TEST-POWERLOSS-001",
+      "post_severity": 10,
+      "post_occurrence": 1,
+      "post_detection": 2,
+      "post_rpn": 20
+    }
+  ],
+  "coverage_exclusions": [
+    {
+      "id": "EXC-PROC-BRAKE-INSTALL",
+      "kind": "process_step",
+      "target_id": "PROC-BRAKE-INSTALL",
+      "rationale": "Example fixture only; replace with a PFMEA record before real release",
+      "approved_by": "manufacturing quality authority",
+      "approval_date": "2026-07-24"
+    }
+  ],
+  "life_evidence": [
+    {
+      "id": "LIFE-BRAKE-001",
+      "item_id": "BRAKE-Z",
+      "configuration": "PAYLOAD-5KG",
+      "mission_profile": "MP-ROBOT-001",
+      "failure_mechanism": "friction lining wear and spring degradation",
+      "required_cycles": 1000000,
+      "demonstrated_or_calculated_cycles": 1500000,
+      "method_source": "supplier qualification plus system duty correlation",
+      "evidence": "REPORT-LIFE-BRAKE-001",
+      "status": "pass"
+    }
+  ],
+  "residual_risk_approvals": [
+    {
+      "id": "RRA-001",
+      "approver": "A. Safety",
+      "role": "product safety authority",
+      "date": "2026-07-24",
+      "scope": "HZ-GRAVITY-DROP; ROBOT-001 rev A; PAYLOAD-5KG",
+      "decision": "accepted",
+      "evidence_reviewed": ["TEST-POWERLOSS-001", "REPORT-LIFE-BRAKE-001"]
+    }
+  ],
+  "change_control": {
+    "baseline_id": "REL-RISK-ROBOT-001-A",
+    "input_hashes": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"],
+    "invalidation_triggers": ["brake or gearbox change", "payload or trajectory change", "maintenance interval change"],
+    "open_change_impacts": []
+  },
+  "release_evidence": [
+    {"type": "scope_and_functions", "artifact": "FUNCTIONS-001", "source_hash": "1111111111111111111111111111111111111111111111111111111111111111", "configurations": ["PAYLOAD-5KG"], "status": "pass"},
+    {"type": "fmea", "artifact": "FMEA-001", "source_hash": "2222222222222222222222222222222222222222222222222222222222222222", "configurations": ["PAYLOAD-5KG"], "status": "pass"},
+    {"type": "hazard_analysis", "artifact": "HAZARDS-001", "source_hash": "3333333333333333333333333333333333333333333333333333333333333333", "configurations": ["PAYLOAD-5KG"], "status": "pass"},
+    {"type": "life_reliability", "artifact": "REPORT-LIFE-001", "source_hash": "4444444444444444444444444444444444444444444444444444444444444444", "configurations": ["PAYLOAD-5KG"], "status": "pass"},
+    {"type": "action_closure", "artifact": "ACTIONS-001", "source_hash": "5555555555555555555555555555555555555555555555555555555555555555", "configurations": ["PAYLOAD-5KG"], "status": "pass"},
+    {"type": "change_impact", "artifact": "CHANGE-IMPACT-001", "source_hash": "6666666666666666666666666666666666666666666666666666666666666666", "configurations": ["PAYLOAD-5KG"], "status": "pass"}
+  ],
+  "approvals": [
+    {
+      "approver": "A. Authority",
+      "role": "product safety and reliability authority",
+      "configurations": ["PAYLOAD-5KG"],
+      "date": "2026-07-24",
+      "scope": "ROBOT-001 rev A; PAYLOAD-5KG production candidate",
+      "decision": "approved"
+    }
+  ]
+}

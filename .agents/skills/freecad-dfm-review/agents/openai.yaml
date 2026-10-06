@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD DFM Review"
+  short_description: "Review parts for practical manufacturability"
+  default_prompt: "Use $freecad-dfm-review to review this part against its intended manufacturing process."

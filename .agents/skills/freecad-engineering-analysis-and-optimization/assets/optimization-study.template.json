@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "study": {
+    "id": "BRKT-042-OPT-001",
+    "revision": "A",
+    "baseline_analysis_contract": "BRKT-042-STR-001-A.json",
+    "status": "planned",
+    "seed": 1729
+  },
+  "objectives": [
+    {"id": "OBJ-MASS", "quantity": "mass", "direction": "minimize", "unit": "kg"},
+    {"id": "OBJ-STIFF", "quantity": "tip_displacement", "direction": "minimize", "unit": "mm"}
+  ],
+  "variables": [
+    {"name": "rib_thickness", "unit": "mm", "lower": 3.0, "upper": 8.0, "manufacturing_resolution": 0.5},
+    {"name": "web_height", "unit": "mm", "lower": 22.0, "upper": 36.0, "manufacturing_resolution": 1.0}
+  ],
+  "constraints": [
+    {"requirement_id": "REQ-STR-001", "quantity": "tip_displacement", "operator": "<=", "limit": 0.5, "unit": "mm"},
+    {"requirement_id": "REQ-DFM-004", "quantity": "minimum_wall", "operator": ">=", "limit": 3.0, "unit": "mm"}
+  ],
+  "noise_variables": [
+    {"name": "elastic_modulus", "unit": "MPa", "distribution": "controlled_empirical", "source": "MAT-AL-001 rev B"},
+    {"name": "service_force", "unit": "N", "distribution": "bounded", "lower": 1100, "upper": 1250, "source": "system loads report rev D"}
+  ],
+  "sampling": {
+    "method": "Latin hypercube screening followed by local refinement",
+    "requested_samples": 40,
+    "failed_design_policy": "record as infeasible; investigate repeated numerical failures",
+    "surrogate_validation": "reserved 20 percent validation set"
+  },
+  "outputs": {
+    "run_table": "optimization-runs.csv",
+    "sensitivity": "sensitivity.csv",
+    "pareto_candidates": "pareto.csv",
+    "robustness": "robustness.json"
+  },
+  "results": {
+    "candidates": [],
+    "robustness": null
+  },
+  "confirmation_runs": [
+    {
+      "candidate_id": "to-be-selected",
+      "authoritative_rebuild": "required",
+      "independent_fine_mesh": "required",
+      "analytical_check": "required",
+      "dfm_review": "required",
+      "status": "planned"
+    }
+  ],
+  "selection": {
+    "candidate_id": null,
+    "rationale": null,
+    "approval_status": "not_selected"
+  }
+}

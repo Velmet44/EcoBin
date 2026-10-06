@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Parametric Modeling"
+  short_description: "Build robust, editable mechanical CAD models"
+  default_prompt: "Use $freecad-parametric-modeling to create a robust parametric FreeCAD model for this mechanical part."

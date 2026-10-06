@@ -1,0 +1,38 @@
+{
+  "skill_name": "freecad-robotics-mechanism-engineering",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review a 6-axis FreeCAD robot arm carrying a 5 kg payload at 800 mm reach. The designer selected motors from static gravity torque and says the native motion animation proves it is production ready. Produce a gated engineering review and identify the evidence needed for release.",
+      "expected_output": "Rejects animation/static sizing as sufficient; covers trajectory load histories, peak/RMS torque, reflected inertia, gearbox/bearing life, thermal duty, singularities, workspace, accuracy, stopping, cables, risk and physical tests.",
+      "files": [],
+      "assertions": [
+        "Separates kinematic animation from dynamic, thermal, life and safety evidence.",
+        "Requires peak and RMS torque-speed checks from credible trajectories.",
+        "Requires workspace/singularity, braking/power-loss and physical acceptance evidence."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Design the engineering contract for a belt-driven pan-tilt camera head that must hold position during power loss, achieve 0.05 degree repeatability, survive one million reversals, export to ROS 2, and route power/data through both axes.",
+      "expected_output": "Produces a configuration-controlled mechanism contract including belts/bearings, reflected inertia, backlash/compliance, thermal and life evidence, brake behavior, cable torsion/cycle life, calibration and URDF/ROS frame/inertia checks.",
+      "files": [],
+      "assertions": [
+        "Defines stable link/joint/frame architecture and ROS/URDF reconciliation.",
+        "Closes repeatability through an error budget and calibration plan.",
+        "Addresses belt/bearing life, cable cycle life and power-loss holding."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our vertical ballscrew robot axis is fast enough nominally, but it can descend under gravity if the drive trips. Review motor, screw, support bearings and brake sizing for a 24/7 production cell and give a verification matrix.",
+      "expected_output": "Checks trajectory loads, critical speed/buckling, bearing and screw duty life, motor RMS/thermal performance, regenerated energy, brake build time/energy/wear, gravity-drop fault response and configuration-specific testing without claiming certification.",
+      "files": [],
+      "assertions": [
+        "Covers ballscrew critical speed/buckling and bearing/transmission duty life.",
+        "Checks motor RMS/peak/thermal and regenerative energy.",
+        "Defines brake and gravity-drop fault tests without claiming certification."
+      ]
+    }
+  ]
+}

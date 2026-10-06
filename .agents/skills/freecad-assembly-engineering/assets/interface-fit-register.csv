@@ -1,0 +1,2 @@
+interface_id,configuration,occurrence_a,datum_a,occurrence_b,datum_b,function,classification,standard_and_edition,nominal_condition,worst_case_min,worst_case_max,thermal_coating_load_basis,inspection_method,test_case,status,evidence
+IF-001,BASE,OCC-001,TBD,OCC-002,TBD,TBD,clearance,TBD,TBD,TBD,TBD,TBD,TBD,TBD,open,TBD

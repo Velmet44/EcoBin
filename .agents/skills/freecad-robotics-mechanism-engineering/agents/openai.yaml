@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Robotics Mechanism Engineering"
+  short_description: "Engineer production robot mechanisms and drives"
+  default_prompt: "Use $freecad-robotics-mechanism-engineering to engineer and verify this robot mechanism from task motion through physical acceptance."

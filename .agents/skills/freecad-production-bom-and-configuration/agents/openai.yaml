@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Production BOM and Configuration"
+  short_description: "Control lifecycle BOMs, cost, change, and traceability"
+  default_prompt: "Use $freecad-production-bom-and-configuration to build and validate the lifecycle BOM, configuration, sourcing, cost, and traceability records for this FreeCAD product."

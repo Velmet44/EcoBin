@@ -1,0 +1,8 @@
+{
+  "skill_name": "freecad-dfm-review",
+  "evals": [
+    {"id": 1, "prompt": "Review a CNC bracket without a named supplier or machine.", "expected_output": "Marks capability unknown and avoids universal tool, tolerance, or setup claims.", "files": [], "assertions": ["States review basis.", "Routes CTQs to capability skill.", "Identifies access and workholding risks."]},
+    {"id": 2, "prompt": "Apply 0.2 mm clearance to every 3D-printed fit.", "expected_output": "Rejects universal clearance and requires process/material/orientation/state-specific capability.", "files": [], "assertions": ["Routes production AM to AM skill.", "Accounts for final state.", "Requires measurable fit stack."]},
+    {"id": 3, "prompt": "Reduce assembly cost without changing function.", "expected_output": "Reviews part count, orientation, fastening, access, service, process route, and inspection before proposing parametric changes.", "files": [], "assertions": ["Preserves requirements.", "Classifies findings.", "Routes quantitative waste/cost work."]}
+  ]
+}

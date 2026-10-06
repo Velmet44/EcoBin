@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Robot Motion Dynamics and Validation"
+  short_description: "Validate robot multibody and controls physics"
+  default_prompt: "Use $freecad-robot-motion-dynamics-and-validation to build and validate a credible dynamics and controls model for this robot."

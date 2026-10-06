@@ -1,0 +1,2 @@
+hazard_id,lifecycle_stage,hazard,sequence,exposed,harm,initial_risk,measure_ids,verification_ids,residual_risk,residual_risk_approval_id,status
+HZ-001,maintenance,stored energy,access occurs before energy is restrained,maintenance technician,crush injury,high,RM-001,TEST-001,pending,,open

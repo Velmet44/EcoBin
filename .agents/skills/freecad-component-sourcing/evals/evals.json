@@ -1,0 +1,8 @@
+{
+  "skill_name": "freecad-component-sourcing",
+  "evals": [
+    {"id": 1, "prompt": "Import an M3 socket screw from an open community library for production.", "expected_output": "Resolves exact standard/edition/size/pitch/class/finish and verifies generated geometry against controlling data.", "files": [], "assertions": ["Community geometry remains reference-only.", "Records source hash and rights.", "Verifies critical interfaces."]},
+    {"id": 2, "prompt": "Add a widely used hobby servo and approve its downloaded STEP model.", "expected_output": "Pins manufacturer part/revision, verifies mount/spline/envelope/mass properties, and hashes the source.", "files": [], "assertions": ["Does not trust popularity.", "Requires lifecycle identity.", "Controls mass/CG/inertia."]},
+    {"id": 3, "prompt": "Import a PCB STEP and ignore missing connector models.", "expected_output": "Requires ECAD revision/variant/transform and explicit absent-model/keepout handling.", "files": [], "assertions": ["Preserves ECAD coordinate transform.", "Records absent models.", "Checks connectors and keepouts."]}
+  ]
+}

@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+"""
+FreeCAD Macro: Batch Fillet Selected Edges
+Macro Name: BatchFilletSelectedEdges.FCMacro
+Description: Takes selected edges in the 3D view and prompts user for a fillet radius.
+"""
+
+import FreeCAD as App
+import FreeCADGui as Gui
+from PySide import QtGui
+
+def run_macro():
+    doc = App.ActiveDocument
+    if not doc:
+        QtGui.QMessageBox.warning(Gui.getMainWindow(), "No Document", "Please open or create a document first.")
+        return
+
+    # Check selection
+    selection_ex = Gui.Selection.getSelectionEx()
+    if not selection_ex:
+        QtGui.QMessageBox.warning(
+            Gui.getMainWindow(),
+            "No Selection",
+            "Please select a feature or sub-edges in the 3D view."
+        )
+        return
+
+    # Ask user for radius
+    radius, ok = QtGui.QInputDialog.getDouble(
+        Gui.getMainWindow(),
+        "Fillet Radius",
+        "Enter fillet radius in mm:",
+        2.0,
+        0.05,
+        100.0,
+        2
+    )
+
+    if not ok:
+        return
+
+    doc.openTransaction("Batch Fillet Selected")
+    try:
+        for sel in selection_ex:
+            obj = sel.Object
+            if not hasattr(obj, "Shape"):
+                continue
+
+            sub_edges = [elem for elem in sel.SubObjects if hasattr(elem, "Curve")]
+            if not sub_edges:
+                # If no specific edges selected, attempt fillet on all edges
+                sub_edges = obj.Shape.Edges
+
+            new_shape = obj.Shape.makeFillet(radius, sub_edges)
+            obj.Shape = new_shape
+
+        doc.recompute()
+        doc.commitTransaction()
+        App.Console.PrintMessage(f"Fillet of radius {radius}mm applied successfully.\n")
+
+    except Exception as e:
+        doc.abortTransaction()
+        QtGui.QMessageBox.critical(Gui.getMainWindow(), "Fillet Error", f"Failed to apply fillet:\n{str(e)}")
+
+if __name__ == "__main__" or App.GuiUp:
+    run_macro()

@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "product": {
+    "part_number": "UNASSIGNED",
+    "name": "unnamed_assembly",
+    "revision": "A",
+    "maturity": "concept",
+    "units": "mm",
+    "coordinate_system": "TBD",
+    "governing_product_definition": "TBD",
+    "acceptance_authority_role": "TBD"
+  },
+  "configurations": [
+    {
+      "id": "BASE",
+      "effectivity": "TBD",
+      "status": "development"
+    }
+  ],
+  "definitions": [
+    {
+      "part_number": "TBD",
+      "revision": "TBD",
+      "description": "TBD",
+      "item_type": "make",
+      "component_record": null,
+      "mass": {
+        "value": null,
+        "unit": "kg",
+        "source": "unknown",
+        "applicability": "required",
+        "justification": null
+      }
+    }
+  ],
+  "occurrences": [
+    {
+      "occurrence_id": "OCC-001",
+      "parent_occurrence_id": null,
+      "part_number": "TBD",
+      "revision": "TBD",
+      "quantity": 1,
+      "configuration_ids": [
+        "BASE"
+      ],
+      "rigid_at_parent": true
+    }
+  ],
+  "grounding": [
+    {
+      "configuration_id": "BASE",
+      "occurrence_id": "OCC-001",
+      "datum": "TBD",
+      "intent": "TBD"
+    }
+  ],
+  "joints": [],
+  "interfaces": [],
+  "test_cases": [],
+  "release_evidence": [],
+  "approvals": []
+}

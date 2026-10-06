@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Tolerance and Process Capability"
+  short_description: "Validate fits, metrology, and process capability"
+  default_prompt: "Use $freecad-tolerance-metrology-and-process-capability to create an evidence-backed tolerance, fit, metrology, and capability plan for this part."

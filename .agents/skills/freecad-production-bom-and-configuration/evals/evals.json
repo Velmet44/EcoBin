@@ -1,0 +1,41 @@
+{
+  "skill_name": "freecad-production-bom-and-configuration",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our FreeCAD robot wrist has two configurations and 146 linked occurrences. Create a production BOM contract that reconciles the CAD eBOM to an mBOM, includes adhesives, cable labels and packaging, controls servo and bearing alternates by serial effectivity, and reports where-used impact for a bearing revision change.",
+      "expected_output": "A lifecycle BOM contract and review that preserve occurrence identity, map eBOM to mBOM, govern alternates/effectivity, include non-geometric items, and provide where-used/change evidence without claiming ERP or physical verification.",
+      "files": [],
+      "assertions": [
+        "Distinguishes eBOM, mBOM, as-built, and as-maintained states",
+        "Includes structured effectivity and approved alternate controls",
+        "Reconciles CAD and non-geometric BOM content in both directions",
+        "Reports transitive where-used and manufacturing/service change impact"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build the as-built genealogy and software manifest for 20 mobile robots. Each has serialized motors, lot-controlled batteries, unit-specific encoder substitutions under deviation, and controller firmware plus calibration hashes. Include the acceptance gates and validator workflow.",
+      "expected_output": "A serial/lot genealogy and firmware baseline with deviation scope, evidence, immutable maintenance transitions, and honest validation boundaries.",
+      "files": [],
+      "assertions": [
+        "Tracks product, occurrence, part revision, serial, and lot relationships",
+        "Scopes substitutions to approved units rather than global alternates",
+        "Captures firmware version, target, checksum, calibration, and evidence",
+        "Does not claim the validator proves the physical build"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Roll up cost and supply risk for an aluminum actuator assembly at quantities 10, 100 and 1000. Purchased electronics have price breaks, one MCU is single-source and near end-of-life, machining cost comes from a separate manufacturing plan, and some quotes have expired. Prevent phantom and embedded-cost double counting.",
+      "expected_output": "A normalized cost and sourcing analysis with quantity/basis provenance, missing/expired-cost flags, supply risks, approved-source coverage, and double-count prevention.",
+      "files": [],
+      "assertions": [
+        "Normalizes currency, date, quantity break, batch size, and cost type",
+        "Imports rather than reinvents manufacturing conversion cost",
+        "Flags uncosted, expired, single-source, and lifecycle risks",
+        "Avoids double counting phantom groups and embedded purchased-assembly cost"
+      ]
+    }
+  ]
+}

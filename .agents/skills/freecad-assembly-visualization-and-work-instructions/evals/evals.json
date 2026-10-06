@@ -1,0 +1,26 @@
+{
+  "skill_name": "freecad-assembly-visualization-and-work-instructions",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Animate a slider-crank in FreeCAD 1.1.2 and export a repeatable tutorial video with first, mid and end poses.",
+      "expected_output": "Uses native prescribed motion, records formula/time/frame settings, fixes camera, captures hashed PNGs, verifies critical joint values, links separate collision evidence and encodes media from the audited frames.",
+      "files": [],
+      "assertions": ["Uses Create Simulation as prescribed kinematics.", "Creates a deterministic frame manifest.", "Keeps collision and dynamics evidence separate."]
+    },
+    {
+      "id": 2,
+      "prompt": "Create an exploded gearbox assembly manual with screws, nuts, torque, locking compound, balloons and a parts list.",
+      "expected_output": "Maps exploded moves to occurrence/find numbers and sequence steps, checks assembled insertion/tool paths, creates TechDraw pages, reconciles BOM/callouts and records process/safety/inspection details.",
+      "files": [],
+      "assertions": ["Preserves design placements.", "Reconciles every callout to BOM.", "Includes tools, torque, consumables and inspection."]
+    },
+    {
+      "id": 3,
+      "prompt": "We changed the root assembly after rendering. Keep the old GIF and PDF because they still look correct.",
+      "expected_output": "Fails the stale derivative using source hashes and requires regeneration, attachment/callout reconciliation and visual QA.",
+      "files": [],
+      "assertions": ["Invalidates stale media by hash.", "Requires TechDraw/callout recheck.", "Does not accept visual similarity as traceability."]
+    }
+  ]
+}

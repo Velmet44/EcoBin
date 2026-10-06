@@ -1,0 +1,3 @@
+requirement_id,configuration,requirement,method,load_pose_environment,evidence_id,status,owner,acceptance_authority
+REQ-001,PAYLOAD-5KG,endpoint repeatability <= 0.2 mm,physical test,rated payload; declared pose set; thermal steady state,TEST-REPEAT-001,planned,robotics verification,robotics design authority
+REQ-002,PAYLOAD-5KG,no uncontrolled gravity drop on power loss,fault injection,maximum gravity moment; hot brake,TEST-POWERLOSS-001,planned,safety verification,machinery safety authority

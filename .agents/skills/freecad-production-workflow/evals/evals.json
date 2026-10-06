@@ -1,0 +1,8 @@
+{
+  "skill_name": "freecad-production-workflow",
+  "evals": [
+    {"id": 1, "prompt": "Design and release a small robot arm for production.", "expected_output": "Routes requirements through controlled parts, mechanisms, dynamics, tolerances, DFM, BOM, risk, manufacturing and semantic release gates.", "files": [], "assertions": ["Separates CAD kinematics from physics.", "Requires human authority.", "Produces explicit verdict."]},
+    {"id": 2, "prompt": "Make a CNC part cheaply with minimal waste.", "expected_output": "Builds robust geometry, identifies CTQs, verifies DFM/CAM, and quantifies accepted-unit cost and material balance.", "files": [], "assertions": ["Preserves function and inspection.", "Quantifies yield/remnants.", "Requires posted-code controls if CAM is included."]},
+    {"id": 3, "prompt": "Create a full assembly with BOM, animation, and tutorial.", "expected_output": "Separates parts/subassemblies/full assembly and reconciles configurations, occurrences, BOM, frames, views and work instructions.", "files": [], "assertions": ["Uses controlled source components.", "Keeps exploded state separate.", "Binds derivatives to hashes."]}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "skill_name": "freecad-tolerance-metrology-and-process-capability",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set the bearing press fit and heat-set-insert holes for an FDM robot bracket. The team wants one universal PLA clearance.",
+      "expected_output": "Rejects a universal clearance; defines function, process tuple, orientation/feature coupons, uncertainty, fit testing, compensation control, and insert/post-machining alternatives.",
+      "files": [],
+      "assertions": ["Uses machine/material/orientation-specific evidence.", "Keeps nominal CAD separate from compensation.", "Requires measured fit and conformity evidence."]
+    },
+    {
+      "id": 2,
+      "prompt": "Release an anodized two-setup CNC robot link with a precision bearing bore and position tolerance. The machine brochure says plus or minus 5 microns.",
+      "expected_output": "Rejects brochure accuracy as part capability; covers datum transfer, workholding/distortion, post-anodize state, representative study or FAI, uncertainty and supplier approval.",
+      "files": [],
+      "assertions": ["Separates machine accuracy from part capability.", "Defines final process state and measurement decision rule.", "Requires scoped capability or justified 100% inspection."]
+    },
+    {
+      "id": 3,
+      "prompt": "A one-off CNC prototype has six measured CTQs. Calculate Cpk and call it production capable.",
+      "expected_output": "Refuses invented capability indices; uses qualified process evidence plus FAI/100% inspection and states what production study is needed.",
+      "files": [],
+      "assertions": ["Rejects Cpk from a one-off sample.", "Requires measurement uncertainty.", "Does not claim production capability."]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Engineering Analysis"
+  short_description: "Verify FEM and optimize production designs"
+  default_prompt: "Use $freecad-engineering-analysis-and-optimization to build a verified analysis and optimization evidence package for this design."

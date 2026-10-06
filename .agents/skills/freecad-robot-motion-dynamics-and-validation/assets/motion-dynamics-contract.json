@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "product": {
+    "part_number": "ROBOT-001",
+    "revision": "A",
+    "configuration": "PAYLOAD-5KG",
+    "maturity": "production_candidate",
+    "acceptance_authority_role": "robot dynamics authority"
+  },
+  "intended_use": {
+    "prediction": "joint loads and endpoint settling for pick trajectory T-17",
+    "acceptance_limits": "REQ-DYN-017",
+    "excluded_physics": ["gear tooth microgeometry"],
+    "consequence": "production performance; separate safety assessment"
+  },
+  "links": [
+    {
+      "id": "link1",
+      "occurrence_id": "ROBOT-001/LINK-1",
+      "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "mass_properties_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "frame": "link1_cad",
+      "mass_kg": 8.2,
+      "cog_m": [0.18, 0.0, 0.02],
+      "inertia_kg_m2": [[0.031, 0.0, 0.0], [0.0, 0.29, 0.0], [0.0, 0.0, 0.30]],
+      "uncertainty": "mass +/-1%; CoG +/-2 mm",
+      "measured_reconciliation": "MASS-TEST-L1-004"
+    }
+  ],
+  "model": {
+    "joint_and_constraint_evidence": "JOINT-MAP-017",
+    "friction_compliance_backlash_evidence": "PARAM-ID-009",
+    "contact_and_stop_evidence": "CONTACT-CAL-006",
+    "actuator_drive_controller_evidence": "DRIVE-CTRL-MODEL-012",
+    "base_fixture_compliance_evidence": "BASE-MODAL-003",
+    "gravity_and_initial_conditions": "world -Z 9.80665 m/s2; home at rest",
+    "co_simulation": {
+      "required": true,
+      "interface_contract": "COSIM-IF-017",
+      "exchange_variables_frames_units": "COSIM-DICT-017",
+      "sample_rates_and_latency": "COSIM-TIMING-017",
+      "coupling_and_convergence": "COSIM-CONV-017",
+      "initialization_and_failure_handling": "COSIM-INIT-017"
+    }
+  },
+  "trajectory": {
+    "artifact": "trajectory-T17.csv",
+    "source_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "sample_rate_hz": 1000,
+    "duration_s": 2.4
+  },
+  "solver": {
+    "name": "Project Chrono",
+    "version": "10.0.0",
+    "model_input_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "integrator": "HHT",
+    "time_step_s": 0.0005,
+    "relative_tolerance": 1e-7,
+    "absolute_tolerance": 1e-9,
+    "contact_formulation": "SMC parameter set CONTACT-CAL-006",
+    "run_environment": "locked container DYN-IMG-017"
+  },
+  "verification": {
+    "analytical_or_benchmark_evidence": "BENCH-DYN-017",
+    "constraint_residual_limit": 1e-6,
+    "constraint_residual_observed": 2e-7,
+    "energy_balance_evidence": "ENERGY-DYN-017",
+    "time_step_sensitivity_evidence": "STEP-STUDY-017",
+    "parameter_sensitivity_evidence": "SENS-DYN-017",
+    "deterministic_rerun_evidence": "RERUN-DYN-017"
+  },
+  "load_reconciliation": {
+    "robot_sizing_contract": {
+      "artifact": "ROBOT-CONTRACT-001",
+      "source_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "configuration": "PAYLOAD-5KG"
+    },
+    "fea_load_transfer": {
+      "artifact": "LOAD-XFER-017",
+      "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+      "configuration": "PAYLOAD-5KG"
+    },
+    "governing_event_table": {
+      "artifact": "GOV-EVENTS-017.csv",
+      "source_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration": "PAYLOAD-5KG"
+    }
+  },
+  "physical_correlation": {
+    "state": "passed",
+    "test_plan": "TEST-DYN-017",
+    "instrumentation_and_uncertainty": "INST-DYN-017",
+    "independent_validation_data": "DATA-DYN-VAL-017",
+    "correlation_report": "CORR-DYN-017",
+    "source_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "configuration": "PAYLOAD-5KG",
+    "test_date": "2026-07-24",
+    "channels": [
+      {
+        "id": "CH-ENDPOINT-SETTLING",
+        "quantity": "endpoint_settling_time",
+        "unit": "s",
+        "predicted": 0.35,
+        "measured": 0.36,
+        "acceptance_tolerance": 0.02,
+        "expanded_uncertainty": 0.005,
+        "result": "pass"
+      }
+    ],
+    "accepted_by": "A. Dynamics",
+    "accepted_by_role": "robot dynamics authority"
+  },
+  "release": {
+    "limitations": "valid only for PAYLOAD-5KG and trajectory T-17 envelope",
+    "approver": "A. Dynamics",
+    "approver_role": "robot dynamics authority",
+    "approval_date": "2026-07-25"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "skill_name": "freecad-robot-motion-dynamics-and-validation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our six-axis arm looks smooth in FreeCAD Assembly animation. Confirm the torques, contact loads and controller settling are physically accurate.",
+      "expected_output": "Refuses the claim; distinguishes prescribed kinematics, collision checks and force-driven dynamics, then defines a controlled MBD/controls model and correlation plan.",
+      "files": [],
+      "assertions": ["Does not treat animation as physics.", "Requires numeric mass/inertia and actuator/control models.", "Requires numerical verification and physical correlation."]
+    },
+    {
+      "id": 2,
+      "prompt": "Validate a high-speed pick-and-place robot with a flexible wrist, gearbox backlash, 4 ms control delay and payload variants.",
+      "expected_output": "Covers flexible-body modes, backlash/friction, controller co-simulation, payload uncertainty, time-step/model sensitivity, load extraction and measured time/frequency correlation.",
+      "files": [],
+      "assertions": ["Models flexible dynamics and control delay.", "Requires co-simulation interface discipline.", "Reconciles dynamic loads to FEA and drive sizing."]
+    },
+    {
+      "id": 3,
+      "prompt": "Simulate a parallel gripper impact on a fragile part and use the peak contact force for release.",
+      "expected_output": "Requires contact-law calibration, bandwidth/impulse metrics, step/contact-parameter sensitivity, material/compliance uncertainty, safe instrumented tests and bounded validation.",
+      "files": [],
+      "assertions": ["Treats contact peaks as numerically sensitive.", "Requires contact and time-step sensitivity.", "Does not release from one solver peak."]
+    }
+  ]
+}

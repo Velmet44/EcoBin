@@ -1,0 +1,3 @@
+record_id,kind,build_id,position,orientation,material_lot,state,test_or_measurement,evidence,status
+ART-001,geometric artifact,BR-2026-0719,B2,XY,PA12CF-L2407,conditioned,dimensional capability,ARTIFACT-52902-006,approved
+CPN-001,material coupon,BR-2026-0719,B2,XY,PA12CF-L2407,conditioned,tensile and density,MAT-ALLOW-PA12CF-02,approved

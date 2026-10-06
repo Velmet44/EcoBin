@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Manufacturing and Material Optimization"
+  short_description: "Plan routes, yield, cost, nesting, and waste reduction"
+  default_prompt: "Use $freecad-manufacturing-planning-and-material-optimization to build and validate a quantitative manufacturing route, stock, yield, cost, remnant, and waste-reduction plan."

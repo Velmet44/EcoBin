@@ -1,0 +1,44 @@
+{
+  "skill_name": "freecad-engineering-analysis-and-optimization",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We have a FreeCAD 1.1 model of a 7075-T6 robot wrist link with a servo and gearbox mounted at the end. Production wants to remove 18% mass. Build the analysis and optimization plan for static deflection/yield, first mode, bolt-interface slip, and 10 million reversal cycles. The current team only has one CalculiX stress plot. Specify load cases, hand checks, material/allowable evidence, FEM idealization/contacts/BCs, convergence and singularity treatment, validation, DOE/Pareto/robustness, and confirmation gates. Do not invent loads or approve the design.",
+      "expected_output": "A traceable analysis and optimization plan that flags the single contour as inadequate, requests controlled loads and allowables, covers static/modal/joint/fatigue physics, requires equilibrium and mesh convergence, separates verification from physical validation, and prevents an optimized candidate from release before independent confirmation.",
+      "files": [],
+      "assertions": [
+        "Explicitly states that the existing solver plot cannot approve or release the design.",
+        "Defines a load-case matrix including servo/gearbox inertia, torque/reversal spectrum, joint preload or slip, and relevant configurations.",
+        "Requires analytical free-body, stiffness, joint, and fatigue checks with controlled allowables and provenance.",
+        "Specifies reaction balance, at least three mesh levels, singularity disposition, and independent validation/correlation.",
+        "Defines constrained multiobjective optimization with manufacturable CAD variables, DOE/sensitivity, Pareto reporting, uncertainty/robustness, and fine-mesh confirmation runs."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review this proposed thermal-structural qualification workflow for a sealed electronics enclosure: import 38 W board dissipation into FreeCAD FEM, set the outside wall to 25 C, run Elmer once, then pass the enclosure if the peak is below 85 C. The lid is gasketed, the base is bolted to a robot frame, ambient is 45 C, and the machine cycles 20 minutes on/10 minutes off. Produce the corrected production-grade analysis contract outline, including solver choice boundaries and test correlation.",
+      "expected_output": "A corrected transient thermal and thermomechanical workflow that rejects the conflicting boundary basis, models heat paths and uncertain coefficients, records units/provenance, checks energy balance and convergence, considers gasket/contact/bolt/frame effects and thermal expansion, and correlates temperatures or heat flow against instrumented testing before qualification.",
+      "files": [],
+      "assertions": [
+        "Identifies the 25 C wall condition as inconsistent or unjustified relative to the 45 C ambient and requests physical boundary evidence.",
+        "Includes transient duty cycle, radiation/convection/contact resistance, gasket and bolted-frame heat paths, and temperature-dependent material properties where significant.",
+        "Explains when Elmer, CalculiX thermomechanical analysis, or an external solver is appropriate without claiming unsupported capability.",
+        "Requires heat/energy balance, mesh/time-step convergence, controlled units, solver logs, and named extraction locations.",
+        "Defines instrumented thermal correlation with sensor uncertainty and preserves qualification authority outside solver output."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "A supplier says our thin sheet-metal robot pedestal has a linear eigenvalue buckling factor of 2.4 and therefore passes the required 2.0. The peak stress rises without bound as the tetrahedral mesh is refined near a welded corner. We also need the first natural frequency above 42 Hz in payload-empty and payload-full states. Write the review findings and the minimum re-analysis/physical-test package needed for a release decision.",
+      "expected_output": "A technically disciplined review that treats eigenvalue buckling as screening, recognizes the welded-corner singularity, calls for shell/appropriate weld modeling and nonlinear imperfection analysis, verifies modal mass/boundary/payload states, checks equilibrium and convergence of meaningful quantities, and defines physical buckling/modal/strain correlation and independent review.",
+      "files": [],
+      "assertions": [
+        "Rejects automatic pass from the eigenvalue factor and requires nonlinear imperfection-sensitive buckling evidence.",
+        "Recognizes the divergent welded-corner peak as a singularity and requires a compatible structural/hot-spot/notch or code method.",
+        "Covers both payload configurations, realistic base/joint stiffness, mass/inertia, rigid-body modes, mass participation, and frequency margin.",
+        "Requires reaction/equilibrium checks and convergence of physically meaningful quantities rather than the singular peak.",
+        "Specifies physical modal and structural correlation, uncertainties, residual risks, and independent release-authority review."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "skill_name": "freecad-assembly-engineering",
+  "evals": [
+    {"id": 1, "prompt": "Release a gearbox assembly because the nominal pose solves.", "expected_output": "Requires configuration, DOF, fit, collision sweep, fastener, mass, BOM, and physical acceptance evidence.", "files": [], "assertions": ["Rejects solver success as release proof.", "Uses stable occurrences and LCS.", "Requires worst-case interfaces."]},
+    {"id": 2, "prompt": "Build a robot subassembly from a servo, bearings, shaft, and M3 screws.", "expected_output": "Keeps controlled definitions separate, creates occurrence hierarchy and joints, reconciles fits and hardware.", "files": [], "assertions": ["Routes purchased parts through sourcing.", "Separates definition from occurrence.", "Checks assembly sequence and access."]},
+    {"id": 3, "prompt": "Create an exploded assembly manual from arbitrary moved parts.", "expected_output": "Preserves design placements and routes approved BOM/sequence evidence to visualization.", "files": [], "assertions": ["Does not overwrite design placements.", "Reconciles callouts to BOM.", "Requires reset verification."]}
+  ]
+}

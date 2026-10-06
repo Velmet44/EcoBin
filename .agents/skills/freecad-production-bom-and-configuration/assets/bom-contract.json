@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "product": {
+    "part_number": "TBD",
+    "revision": "TBD",
+    "name": "TBD",
+    "lifecycle_state": "concept",
+    "owner": "TBD",
+    "units": "mm",
+    "currency": "USD",
+    "cost_basis_date": "YYYY-MM-DD",
+    "configuration_procedure": "TBD",
+    "acceptance_authority_role": "TBD"
+  },
+  "source_systems": [],
+  "configurations": [
+    {
+      "id": "BASE",
+      "status": "draft",
+      "effectivity": {
+        "configurations": ["BASE"],
+        "serial_from": null,
+        "serial_to": null,
+        "date_from": null,
+        "date_to": null,
+        "sites": []
+      }
+    }
+  ],
+  "definitions": [],
+  "views": [],
+  "occurrences": [],
+  "transformations": [],
+  "approved_sources": [],
+  "alternates": [],
+  "deviations": [],
+  "changes": [],
+  "cost_records": [],
+  "as_built_units": [],
+  "maintenance_events": [],
+  "reconciliations": [],
+  "approvals": []
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Additive Manufacturing Engineering"
+  short_description: "Qualify production 3D-printed parts and builds"
+  default_prompt: "Use $freecad-additive-manufacturing-engineering to engineer and qualify this additive-manufactured part and build route."

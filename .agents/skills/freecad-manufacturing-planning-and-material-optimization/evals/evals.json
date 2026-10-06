@@ -1,0 +1,41 @@
+{
+  "skill_name": "freecad-manufacturing-planning-and-material-optimization",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Optimize production of 250 aluminum robot side plates per month from 6 mm 6061-T6 sheet. Compare 4x8 and 5x10 stock, preserve rolling direction, include laser kerf, thermal spacing, tabs, edge trim and protected cosmetic faces, inventory reusable remnants, and report material utilization, scrap and cost without pretending a nest percentage proves manufacturability.",
+      "expected_output": "A controlled sheet-stock and nesting plan with explicit constraints, closed mass balance, remnant rules, cost basis, alternate comparison, and geometry/CAM validation boundaries.",
+      "files": [],
+      "assertions": [
+        "Separates geometric nest utilization from purchased-mass utilization",
+        "Accounts for kerf, margins, tabs, thermal spacing, grain, and cosmetic restrictions",
+        "Requires controlled remnant identity and future-use route",
+        "Preserves actual nest/CAM evidence and avoids unsupported manufacturability claims"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a bar cut and machining plan for 1000 stainless actuator shafts. Include saw kerf, end trim, chuck drop, standard 3 m versus 6 m bars, heat traceability, first-pass yield, rework, chip recycling, setup and cycle time, tool life, inspection, packaging, and accepted-unit cost.",
+      "expected_output": "A quantity-closed router and cut plan with bar utilization, material balance, heat/lot controls, operation yields, time/cost categories, packaging, and production evidence.",
+      "files": [],
+      "assertions": [
+        "Closes purchased material and operation quantity balances",
+        "Tracks kerf, trim, chuck drop, chips, remnants, and disposal separately",
+        "Distinguishes first-pass from final yield and accounts for rework",
+        "Computes transparent batch and accepted-unit time/cost"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "At quantities 10, 100 and 2000, compare machining a robot joint housing from billet, investment casting plus finish machining, and metal additive manufacturing. Include tooling/NRE, MOQ, supports/powder refresh, casting gates/returns, yield ramp, lead time, inspection, capacity, supply risk, break-even and sensitivity to yield and material price.",
+      "expected_output": "An apples-to-apples alternative-process study with explicit fixed/variable costs, mass flows, quality/capacity/risk constraints, break-even validity checks, and sensitivity results.",
+      "files": [],
+      "assertions": [
+        "Normalizes alternatives to the same accepted quantity and requirements",
+        "Includes route-specific material flows and process losses",
+        "Calculates break-even only from explicit fixed and variable costs",
+        "Includes yield/material sensitivities plus capability, lead-time, and supply-risk tradeoffs"
+      ]
+    }
+  ]
+}

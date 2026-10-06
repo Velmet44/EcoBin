@@ -1,0 +1,26 @@
+{
+  "skill_name": "freecad-additive-manufacturing-engineering",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Release an FDM carbon-fiber nylon robot joint with a bearing seat, heat-set inserts and a universal 0.2 mm clearance.",
+      "expected_output": "Rejects universal clearance, qualifies the exact process tuple, routes the bearing seat to measured capability or machining, covers anisotropy, conditioning, coupons and inserts.",
+      "files": [],
+      "assertions": ["Defines exact machine/material/orientation.", "Requires representative geometry and material evidence.", "Controls final fit state."]
+    },
+    {
+      "id": 2,
+      "prompt": "Plan an LPBF aluminum actuator housing with internal cooling passages, HIP, sealing faces and bearing bores.",
+      "expected_output": "Controls powder removal, witness coupons, stress relief/HIP, machining datums, porosity/NDE, sealing and bearing CTQs, state-specific inspection and build traceability.",
+      "files": [],
+      "assertions": ["Defines the complete state chain.", "Requires internal-channel cleaning evidence.", "Keeps final-machined CTQs under metrology control."]
+    },
+    {
+      "id": 3,
+      "prompt": "The slicer preview looks good. Export STL and approve this printed safety bracket for production.",
+      "expected_output": "Refuses approval from preview/STL; requires native/STEP/build hashes, allowables, coupons, process qualification, post-process, inspection and physical testing.",
+      "files": [],
+      "assertions": ["Rejects visual preview as qualification.", "Requires process and material evidence.", "Preserves controlled release data."]
+    }
+  ]
+}

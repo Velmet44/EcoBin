@@ -1,0 +1,2 @@
+link_id,source_hash,frame,mass_kg,cog_x_m,cog_y_m,cog_z_m,Ixx,Ixy,Ixz,Iyy,Iyz,Izz,uncertainty,measured_reconciliation
+link1,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,link1_cad,8.2,0.18,0,0.02,0.031,0,0,0.29,0,0.30,mass +/-1%; CoG +/-2 mm,MASS-TEST-L1-004

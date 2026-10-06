@@ -1,0 +1,2 @@
+interface_id,part_feature,mating_part,fit_function,operating_state,worst_case_evidence,assembly_method,inspection_evidence,disposition
+FIT-BRG-01,bearing_bore_01,BRG-6204-EXACT,outer-ring retention,20 C dry assembly,FIT-CALC-017,controlled arbor press,MS-BORE-01,approved

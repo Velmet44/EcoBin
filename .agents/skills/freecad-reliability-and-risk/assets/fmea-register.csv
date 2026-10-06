@@ -1,0 +1,2 @@
+failure_mode_id,analysis_type,function_or_process_id,item_id,configuration,lifecycle_state,failure_mode,safety_related,local_effect,next_effect,end_effect,causes,prevention_controls,detection_controls,severity,occurrence,detection,rpn,hazard_ids,action_ids,status,evidence
+FM-001,DFMEA,FUN-001,PART-001,BASE,operation,loss of intended load support,true,local deformation,interface displacement,unsafe motion,material fatigue,load margin and fillet design,periodic inspection,9,3,5,135,HZ-001,ACT-001,open,

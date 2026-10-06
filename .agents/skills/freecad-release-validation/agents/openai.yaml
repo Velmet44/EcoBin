@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Release Validation"
+  short_description: "Audit CAD geometry and manufacturing releases"
+  default_prompt: "Use $freecad-release-validation to audit this FreeCAD model and prepare a controlled manufacturing release."

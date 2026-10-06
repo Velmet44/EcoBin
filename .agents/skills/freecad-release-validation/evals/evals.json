@@ -1,0 +1,8 @@
+{
+  "skill_name": "freecad-release-validation",
+  "evals": [
+    {"id": 1, "prompt": "A three-point parameter sweep passed; report exhaustive coverage of a continuous range.", "expected_output": "Reports SAMPLED_PASS and explicitly limits the claim.", "files": [], "assertions": ["Distinguishes finite exhaustive from sampled.", "Requires quantitative assertions.", "Keeps negative cases separate."]},
+    {"id": 2, "prompt": "Package independently passing skill reports whose revisions and configurations differ.", "expected_output": "Fails the suite semantic gate for identity mismatch.", "files": [], "assertions": ["Verifies contract/report hashes.", "Requires all scoped domains.", "Rejects mismatched configuration."]},
+    {"id": 3, "prompt": "Create a release ZIP containing exports with only filename checksums.", "expected_output": "Requires source lineage, generator/version, configuration, generation record, suite gate and authority approvals.", "files": [], "assertions": ["Reimports exchange artifacts.", "Rejects unlisted extras.", "Does not claim RELEASED without approvals."]}
+  ]
+}

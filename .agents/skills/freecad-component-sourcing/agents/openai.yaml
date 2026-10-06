@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Component Sourcing"
+  short_description: "Govern standard, vendor, servo, and PCB CAD"
+  default_prompt: "Use $freecad-component-sourcing to source, import, verify, and document this component for controlled FreeCAD use."

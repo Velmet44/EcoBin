@@ -1,0 +1,2 @@
+frame_index,time_s,pose_id,joint_values,image_path,image_sha256,root_fcstd_hash,configuration,collision_evidence_reference
+0,0.0,POSE-START,J1=0 deg,frames/0000.png,bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,PRODUCTION,ASM-SWEEP-001

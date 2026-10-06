@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "product": {
+    "part_number": "AM-BRACKET-001",
+    "revision": "A",
+    "configuration": "PRODUCTION",
+    "maturity": "production_candidate",
+    "acceptance_authority_role": "additive manufacturing authority"
+  },
+  "process_tuple": {
+    "supplier": "Qualified AM Supplier",
+    "site": "Plant 2",
+    "machine_id": "MEX-07",
+    "process_category": "material extrusion",
+    "material_and_lot": "PA12-CF lot L2407",
+    "parameter_set_revision": "PS-PA12CF-06",
+    "build_software_version": "Qualified slicer 6.2",
+    "orientation_and_position": "XY functional plane; zone B2",
+    "support_strategy": "qualified soluble support rev 3",
+    "atmosphere_or_conditioning": "dry feedstock; conditioned 23 C/50% RH",
+    "requalification_triggers": "machine/material/parameter/orientation/post-process/maintenance change"
+  },
+  "state_chain": ["as-built", "support-removed", "conditioned", "finish-machined interfaces", "inspected"],
+  "design_review": {
+    "orientation_anisotropy_evidence": "ANISO-PA12CF-006",
+    "support_and_removal_evidence": "SUPPORT-PLAN-017",
+    "warp_and_residual_stress_evidence": "WARP-STUDY-004",
+    "trapped_material_and_cleaning_evidence": "CLEAN-PLAN-003",
+    "machining_stock_and_datums": "MACH-DATUM-PLAN-008",
+    "holes_threads_and_inserts_strategy": "heat-set inserts; bearing bore finish-machined"
+  },
+  "qualification": {
+    "material_allowables_evidence": "MAT-ALLOW-PA12CF-02",
+    "representative_coupon_plan": "COUPON-PLAN-019",
+    "geometric_artifact_plan": "ARTIFACT-52902-006",
+    "tolerance_capability_contract": "TOL-AM-BRACKET-001",
+    "physical_test_plan": "TEST-AM-BRACKET-011",
+    "coupon_results": []
+  },
+  "postprocess_and_inspection": {
+    "support_or_powder_removal": "WI-SUPPORT-033",
+    "heat_treatment_or_conditioning": "WI-CONDITION-PA12-02",
+    "machining_and_surface_route": "ROUTER-AM-BRACKET-05",
+    "cleanliness_acceptance": "SPEC-CLEAN-07",
+    "nde_or_internal_inspection": "not required; no enclosed critical geometry",
+    "final_inspection_plan": "IP-AM-BRACKET-05",
+    "certificates": []
+  },
+  "data_control": {
+    "nominal_fcstd_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "step_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "build_input_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "compensated_derivative_id": "MFG-AM-BRACKET-001 rev B",
+    "compensation_validation": "COMP-VALID-006",
+    "build_record_and_lot_traceability": "BR-2026-0719"
+  },
+  "feedstock_control": {},
+  "equipment_control": {},
+  "build_execution": {},
+  "personnel_and_ehs": {},
+  "release": {
+    "approvals": [],
+    "approval_date": "YYYY-MM-DD",
+    "configuration": "PRODUCTION"
+  }
+}

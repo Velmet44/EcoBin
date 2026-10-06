@@ -1,0 +1,40 @@
+{
+  "control": {
+    "part_number": "UNASSIGNED",
+    "part_name": "unnamed_part",
+    "revision": "A",
+    "units": "mm",
+    "freecad_version": "1.1.2",
+    "maturity": "concept"
+  },
+  "product_definition": {
+    "material": {
+      "grade": "TBD",
+      "condition": "TBD",
+      "source": "TBD"
+    },
+    "manufacturing_process": "TBD",
+    "finish": "TBD",
+    "governing_standard": "TBD"
+  },
+  "parameters": [
+    {
+      "name": "example_length",
+      "value": "100 mm",
+      "minimum": "90 mm",
+      "maximum": "110 mm",
+      "type": "independent",
+      "source": "TBD",
+      "meaning": "Replace with a real functional dimension"
+    }
+  ],
+  "critical_features": [],
+  "load_cases": [],
+  "assumptions": [],
+  "required_outputs": [
+    "FCStd",
+    "STEP",
+    "drawing PDF",
+    "audit JSON"
+  ]
+}

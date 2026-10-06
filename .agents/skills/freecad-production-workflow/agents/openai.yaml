@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Production Workflow"
+  short_description: "Orchestrate production-grade FreeCAD part delivery"
+  default_prompt: "Use $freecad-production-workflow to take this part from requirements through a manufacturing-ready release."

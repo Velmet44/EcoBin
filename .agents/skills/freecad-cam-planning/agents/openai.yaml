@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD CAM Planning"
+  short_description: "Plan safe, traceable FreeCAD CAM jobs"
+  default_prompt: "Use $freecad-cam-planning to develop and verify a FreeCAD CAM plan for this part and machine."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Assembly Engineering"
+  short_description: "Engineer and verify production FreeCAD assemblies"
+  default_prompt: "Use $freecad-assembly-engineering to structure, constrain, test, document, and release this assembly."

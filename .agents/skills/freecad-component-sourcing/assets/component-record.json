@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "configuration": "BASE",
+  "component_id": "COMP-UNASSIGNED",
+  "component_class": "manufacturer_specific",
+  "description": "TBD",
+  "identity": {
+    "manufacturer": "TBD",
+    "manufacturer_part_number": "TBD",
+    "hardware_revision_or_variant": "TBD",
+    "standard_identifier": null,
+    "standard_edition": null,
+    "nominal_size": null,
+    "pitch": null,
+    "thread_tolerance": null,
+    "length": null,
+    "head_style": null,
+    "drive_style": null,
+    "material_or_property_class": "TBD",
+    "finish": "TBD"
+  },
+  "source": {
+    "source_type": "manufacturer",
+    "publisher": "TBD",
+    "url_or_controlled_path": "TBD",
+    "document_number": "TBD",
+    "document_revision": "TBD",
+    "model_revision": "TBD",
+    "accessed_at": "YYYY-MM-DD",
+    "file_sha256": "TBD",
+    "license_or_terms_url": "TBD",
+    "redistribution": "unresolved",
+    "redistribution_exception": null,
+    "controlling_source_evidence": []
+  },
+  "geometry": {
+    "units": "mm",
+    "representation": "interface",
+    "authority": "reference",
+    "expected_solid_count": 1,
+    "origin_and_axes": "TBD",
+    "verified_dimensions": [],
+    "mass_properties": {},
+    "keepouts_and_motion_envelopes": [],
+    "import_tool_and_version": "TBD"
+  },
+  "ecad": {
+    "project_or_board_id": "TBD",
+    "revision": "TBD",
+    "variant": "TBD",
+    "dnp_policy": "TBD",
+    "source_hash": "TBD",
+    "coordinate_transform": {
+      "from_frame": "TBD",
+      "to_frame": "TBD",
+      "translation": "TBD",
+      "rotation": "TBD"
+    },
+    "absent_models": []
+  },
+  "lifecycle_status": "unknown",
+  "approval": {
+    "status": "reference_only",
+    "evidence": [],
+    "approver": "TBD",
+    "approver_role": "TBD",
+    "acceptance_authority_role": "TBD",
+    "configuration": "BASE",
+    "date": "TBD"
+  }
+}

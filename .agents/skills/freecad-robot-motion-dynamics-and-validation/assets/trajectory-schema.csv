@@ -1,0 +1,2 @@
+time_s,joint_id,position_rad,velocity_rad_s,acceleration_rad_s2,command_torque_Nm,configuration_id
+0.000,J1,0.0,0.0,0.0,0.0,PAYLOAD-5KG

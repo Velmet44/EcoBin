@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Assembly Visualization and Instructions"
+  short_description: "Create traceable animation and exploded manuals"
+  default_prompt: "Use $freecad-assembly-visualization-and-work-instructions to create a traceable animation, exploded view, and assembly tutorial package."

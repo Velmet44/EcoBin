@@ -1,0 +1,2 @@
+measurement_id,characteristic_class,instrument,fixture,calibration_evidence,resolution,expanded_uncertainty,msa_evidence,decision_rule,owner
+MS-BORE-01,precision bore,AG-12,datum A fixture,CAL-AG12-2026,0.0005 mm,0.001 mm,GRR-AG12-2026,QP-14253 guarded acceptance,quality

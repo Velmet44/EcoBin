@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "product": {
+    "part_number": "ROBOT-001",
+    "revision": "A",
+    "configuration": "PAYLOAD-5KG",
+    "maturity": "production_candidate",
+    "units": "SI",
+    "base_frame": "base_link",
+    "acceptance_authority_role": "robotics design authority"
+  },
+  "requirements": {
+    "payload_mass_kg": 5.0,
+    "payload_cog_frame": "tool0",
+    "reach_m": 0.8,
+    "accuracy_m": 0.001,
+    "repeatability_m": 0.0002,
+    "duty_cycle_source": "REQ-MOTION-001",
+    "life_cycles": 1000000
+  },
+  "frames": [
+    {"id": "base_link", "parent": null, "kind": "base", "source": "DATUM-BASE"},
+    {"id": "joint1_frame", "parent": "base_link", "kind": "joint", "source": "DATUM-J1"},
+    {"id": "link1", "parent": "joint1_frame", "kind": "link", "source": "DATUM-L1"},
+    {"id": "tool0", "parent": "link1", "kind": "tool", "source": "DATUM-TOOL"}
+  ],
+  "joints": [
+    {
+      "id": "J1",
+      "parent_frame": "base_link",
+      "child_frame": "link1",
+      "axis": [0, 0, 1],
+      "lower_limit_rad": -3.14,
+      "upper_limit_rad": 3.14,
+      "home_rad": 0.0,
+      "hard_stop_evidence": "TEST-STOP-001"
+    }
+  ],
+  "kinematics": {
+    "model_id": "KIN-001",
+    "workspace_evidence": "REPORT-WORKSPACE-001",
+    "singularity_metric": "minimum singular value",
+    "singularity_threshold": 0.02,
+    "singularity_evidence": "REPORT-SINGULARITY-001",
+    "known_pose_test": "TEST-POSE-001"
+  },
+  "load_cases": [
+    {
+      "id": "LC-MAX-EXTEND",
+      "joint_id": "J1",
+      "trajectory_source": "TRAJECTORY-001",
+      "payload_kg": 5.0,
+      "peak_torque_Nm": 42.0,
+      "rms_torque_Nm": 18.0,
+      "peak_speed_rad_s": 2.0,
+      "stop_energy_J": 160.0
+    }
+  ],
+  "axes": [
+    {
+      "joint_id": "J1",
+      "actuator_part_number": "MOTOR-001",
+      "rated_continuous_torque_Nm": 7.0,
+      "rated_peak_torque_Nm": 18.0,
+      "rated_speed_rad_s": 30.0,
+      "gear_ratio": 10.0,
+      "forward_efficiency": 0.85,
+      "reverse_efficiency": 0.80,
+      "required_motor_peak_torque_Nm": 5.3,
+      "required_motor_rms_torque_Nm": 2.2,
+      "required_motor_speed_rad_s": 20.0,
+      "gravity_loaded": true,
+      "hazardous_motion": true,
+      "hazard_assessment_id": "RA-ROBOT-001/HAZ-J1",
+      "motor_inertia_kg_m2": 0.0007,
+      "reflected_load_inertia_kg_m2": 0.0035,
+      "maximum_inertia_ratio": 8.0,
+      "thermal_evidence": "TEST-THERMAL-001",
+      "transmission_life_evidence": "CALC-GEAR-LIFE-001"
+    }
+  ],
+  "bearings": [
+    {
+      "id": "BRG-J1-A",
+      "joint_id": "J1",
+      "required_life_cycles": 1000000,
+      "calculated_life_cycles": 1800000,
+      "static_safety_factor": 2.1,
+      "load_spectrum_source": "LOADS-J1-001",
+      "lubrication_contamination_basis": "sealed bearing, supplier duty class"
+    }
+  ],
+  "performance_budget": {
+    "predicted_endpoint_error_m": 0.00072,
+    "allowable_endpoint_error_m": 0.001,
+    "backlash_evidence": "TEST-BACKLASH-001",
+    "stiffness_evidence": "TEST-STIFFNESS-001",
+    "calibration_evidence": "REPORT-CAL-001"
+  },
+  "stopping": {
+    "hazardous_axes": [
+      {
+        "joint_id": "J1",
+        "required_hold_torque_Nm": 38.0,
+        "brake_hold_capacity_Nm": 60.0,
+        "required_stop_energy_J": 160.0,
+        "brake_dynamic_energy_capacity_J": 250.0,
+        "power_loss_safe_state": "mechanical brake applies before gravity motion exceeds limit",
+        "power_loss_test": "TEST-POWERLOSS-001",
+        "stopping_analysis_evidence": "CALC-STOP-J1-001",
+        "brake_proof_evidence": "TEST-BRAKE-J1-001"
+      }
+    ]
+  },
+  "cables_and_sensors": {
+    "routing_evidence": "REPORT-CABLE-SWEEP-001",
+    "cycle_life_evidence": "DATASHEET-CABLE-001",
+    "homing_evidence": "TEST-HOME-001",
+    "fault_response_evidence": "TEST-SENSOR-FAULT-001"
+  },
+  "robot_description": {
+    "artifact": "robot.urdf",
+    "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "frame_round_trip_evidence": "TEST-URDF-ROUNDTRIP-001",
+    "inertia_validation_evidence": "REPORT-INERTIA-001",
+    "declared_model_limitations": ["closed-loop cable compliance not represented"]
+  },
+  "safety": {
+    "risk_assessment_id": "RA-ROBOT-001",
+    "applicable_standard_register": "STD-REGISTER-001",
+    "protective_stop_evidence": "TEST-PSTOP-001",
+    "residual_risk_approval": "APPROVAL-RISK-001"
+  },
+  "physical_verification": {
+    "state": "planned",
+    "plan_artifact": "PLAN-PHYSICAL-ACCEPTANCE-001",
+    "acceptance_evidence": null,
+    "accepted_by": null,
+    "acceptance_date": null
+  },
+  "release_evidence": [
+    {"type": "kinematics", "artifact": "REPORT-KIN-001", "source_hash": "1111111111111111111111111111111111111111111111111111111111111111", "configuration": "PAYLOAD-5KG", "status": "pass"},
+    {"type": "trajectory_loads", "artifact": "REPORT-LOAD-001", "source_hash": "2222222222222222222222222222222222222222222222222222222222222222", "configuration": "PAYLOAD-5KG", "status": "pass"},
+    {"type": "drive_thermal", "artifact": "REPORT-THERMAL-001", "source_hash": "3333333333333333333333333333333333333333333333333333333333333333", "configuration": "PAYLOAD-5KG", "status": "pass"},
+    {"type": "transmission_bearing_life", "artifact": "REPORT-LIFE-001", "source_hash": "4444444444444444444444444444444444444444444444444444444444444444", "configuration": "PAYLOAD-5KG", "status": "pass"},
+    {"type": "accuracy_calibration", "artifact": "REPORT-ACCURACY-001", "source_hash": "5555555555555555555555555555555555555555555555555555555555555555", "configuration": "PAYLOAD-5KG", "status": "pass"},
+    {"type": "stopping_power_loss", "artifact": "REPORT-STOP-001", "source_hash": "6666666666666666666666666666666666666666666666666666666666666666", "configuration": "PAYLOAD-5KG", "status": "pass"},
+    {"type": "motion_dynamics_validation", "artifact": "DYN-CONTRACT-001", "source_hash": "7777777777777777777777777777777777777777777777777777777777777777", "configuration": "PAYLOAD-5KG", "status": "pass"},
+    {"type": "physical_verification_plan", "artifact": "PLAN-PHYSICAL-ACCEPTANCE-001", "source_hash": "8888888888888888888888888888888888888888888888888888888888888888", "configuration": "PAYLOAD-5KG", "status": "available"}
+  ],
+  "approvals": [
+    {
+      "approver": "A. Engineer",
+      "role": "robotics design authority",
+      "configuration": "PAYLOAD-5KG",
+      "date": "2026-07-24",
+      "scope": "ROBOT-001 revision A, PAYLOAD-5KG",
+      "decision": "approved"
+    }
+  ]
+}

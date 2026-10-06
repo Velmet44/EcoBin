@@ -1,0 +1,2 @@
+step_id,predecessors,occurrence_id,find_number,quantity,pose_or_view,tools,torque_or_process,safety,inspection,caption_owner,status
+STEP-001,,OCC-BRACKET-01,10,1,EXP-INSTALL,fixture F-01 and 4 mm hex key,8 Nm per WI-TORQUE-01,isolate power; pinch point,flush seating and witness mark,manufacturing engineering,approved

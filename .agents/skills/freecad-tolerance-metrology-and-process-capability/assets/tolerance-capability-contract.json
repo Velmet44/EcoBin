@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "product": {
+    "part_number": "LINK-001",
+    "revision": "A",
+    "configuration": "PRODUCTION",
+    "maturity": "production_candidate",
+    "units": "mm",
+    "gps_system": "ISO GPS",
+    "acceptance_authority_role": "quality authority"
+  },
+  "process_scope": {
+    "supplier": "Qualified Supplier",
+    "site": "Plant 1",
+    "machine_id": "VMC-04",
+    "process": "3-axis CNC milling and boring",
+    "material": "Al 6082-T6 lot controlled",
+    "setup_or_parameter_revision": "ROUTER-17 rev C",
+    "orientation_or_workholding": "OP20 datum A/B/C fixture",
+    "valid_feature_range": "bores 10-30 mm; envelope <= 300 mm",
+    "evidence_expiry_or_change_trigger": "annual or route/machine/tool/material change"
+  },
+  "characteristics": [
+    {
+      "id": "CTQ-BORE-01",
+      "feature": "bearing_bore_01",
+      "nominal": 20.0,
+      "lsl": 19.988,
+      "usl": 20.0,
+      "units": "mm",
+      "datum_reference": "A|B|C",
+      "process_state": "final machined before assembly",
+      "measurement_id": "MS-BORE-01",
+      "capability_id": "CAP-BORE-01",
+      "fit_or_stack_evidence": "FIT-BRG-01",
+      "control_plan_evidence": "CP-LINK-001"
+    }
+  ],
+  "capability_studies": [
+    {
+      "id": "CAP-BORE-01",
+      "basis": "production_study",
+      "sample_size": 50,
+      "stability_evidence": "SPC-BORE-2026Q2",
+      "representative_scope": "same machine, fixture, tool family, material and route",
+      "mean": 19.994,
+      "sigma_within": 0.0015,
+      "sigma_overall": 0.0018,
+      "cp": 1.33,
+      "cpk": 1.33,
+      "pp": 1.11,
+      "ppk": 1.11,
+      "minimum_sample_size": 30,
+      "sample_size_justification": "Example only; replace with the approved study plan and confidence rationale",
+      "subgroup_policy": "Example only; replace with rational subgroup definition",
+      "distribution_assessment": "Example only; replace with the approved distribution assessment",
+      "confidence_method": "Example only; replace with the approved confidence method",
+      "minimum_cpk": 1.33,
+      "minimum_ppk": 1.1,
+      "method": "approved normal stable-process method",
+      "raw_data_artifact": "DATA-CAP-BORE-001.csv",
+      "approved_by": "supplier quality engineer"
+    }
+  ],
+  "measurement_systems": [
+    {
+      "id": "MS-BORE-01",
+      "method": "air gauge with master rings",
+      "instrument_id": "AG-12",
+      "calibration_evidence": "CAL-AG12-2026",
+      "resolution": 0.0005,
+      "expanded_uncertainty": 0.001,
+      "uncertainty_units": "mm",
+      "msa_evidence": "GRR-AG12-2026",
+      "decision_rule": "guarded acceptance per QP-14253",
+      "guard_band": 0.001,
+      "environment_and_fixture": "20 C controlled; datum A fixture"
+    }
+  ],
+  "compensation": {
+    "used": false,
+    "nominal_model_remains_authoritative": true,
+    "controlled_derivative_id": null,
+    "validity_envelope": null,
+    "before_after_validation": null
+  },
+  "release": {
+    "first_article_or_control_plan": "FAI-LINK-001 and CP-LINK-001",
+    "supplier_approval": "SCAR-CLOSE-017",
+    "change_control": "ECN process and annual requalification",
+    "approver": "A. Quality",
+    "approver_role": "quality authority",
+    "approval_date": "2026-07-25"
+  }
+}

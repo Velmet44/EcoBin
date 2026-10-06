@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.1",
+  "record_state": "template",
+  "product": {
+    "assembly_number": "ASM-001",
+    "revision": "A",
+    "configuration": "PRODUCTION",
+    "maturity": "production_candidate",
+    "acceptance_authority_role": "manufacturing engineering authority"
+  },
+  "source": {
+    "root_fcstd_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "child_revision_manifest": "CHILD-MANIFEST-001",
+    "bom_revision": "A",
+    "freecad_version": "1.1.2",
+    "opencascade_version": "project-recorded",
+    "assembly_engineering_evidence": "ASM-VERIFY-001",
+    "collision_clearance_evidence": "ASM-SWEEP-001"
+  },
+  "motion": {
+    "time_start_s": 0.0,
+    "time_end_s": 2.0,
+    "output_step_s": 0.5,
+    "expected_frame_count": 5,
+    "fps": 10,
+    "global_error_tolerance": 1e-6,
+    "drivers": [
+      {
+        "joint_id": "J1",
+        "joint_type": "Revolute",
+        "motion_type": "Angular",
+        "formula": "30 deg * sin(pi * time / 2 s)",
+        "unit": "deg"
+      }
+    ],
+    "critical_pose_ids": ["POSE-START", "POSE-MID", "POSE-END"],
+    "frame_manifest": "frame-manifest.csv"
+  },
+  "camera": {
+    "projection": "orthographic",
+    "camera_state_artifact": "CAMERA-ASM-001.iv",
+    "resolution_px": [1920, 1080],
+    "background": "white",
+    "display_state": "INSTRUCTION-STATE-001"
+  },
+  "exploded_views": [
+    {
+      "id": "EXP-INSTALL",
+      "move_ids": ["MOVE-001"],
+      "occurrence_ids": ["OCC-BRACKET-01"],
+      "instruction_steps": ["STEP-001"],
+      "design_placement_restored_evidence": "RESET-CHECK-001",
+      "techdraw_page": "TD-EXP-001"
+    }
+  ],
+  "instructions": [
+    {
+      "id": "STEP-001",
+      "predecessors": [],
+      "occurrence_id": "OCC-BRACKET-01",
+      "find_number": "10",
+      "quantity": 1,
+      "view_or_frame": "EXP-INSTALL",
+      "tool_and_fixture": "fixture F-01 and 4 mm hex key",
+      "torque_or_process": "8 Nm per WI-TORQUE-01",
+      "safety_esd_cleanliness": "isolate power; pinch-point warning",
+      "inspection_acceptance": "flush seating and torque witness mark",
+      "rework_or_reversal": "remove and replace locking element after second use"
+    }
+  ],
+  "artifacts": {
+    "frame_manifest": {
+      "path": "frame-manifest.csv",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "png_sequence_hash_manifest": {
+      "path": "png-sequence.sha256",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "encoded_media": {
+      "path": "assembly.mp4",
+      "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    "techdraw_pdf": {
+      "path": "exploded-view.pdf",
+      "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    "instruction_manual": {
+      "path": "assembly-manual.pdf",
+      "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    },
+    "derived_from_root_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "encoder_and_version": "ffmpeg project-pinned",
+    "visual_qa_report": "VQA-ASM-001"
+  },
+  "release": {
+    "bom_callout_reconciliation": [
+      {
+        "occurrence_id": "OCC-BRACKET-01",
+        "bom_occurrence_id": "M-BRACKET-01",
+        "find_number": "10",
+        "quantity": 1
+      }
+    ],
+    "cold_regeneration_evidence": "REGEN-VIS-001",
+    "approver_role": "manufacturing engineering authority",
+    "approval_date": "YYYY-MM-DD",
+    "configuration": "PRODUCTION"
+  }
+}

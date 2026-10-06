@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0",
+  "document": {
+    "analysis_id": "BRKT-042-STR-001",
+    "revision": "A",
+    "title": "Illustrative actuator bracket static screening",
+    "status": "draft",
+    "author": "analysis_owner",
+    "independent_reviewer": "analysis_reviewer",
+    "date": "2026-07-24"
+  },
+  "product": {
+    "part_number": "BRKT-042",
+    "revision": "C",
+    "configuration": "nominal-machined",
+    "authoritative_model": "BRKT-042-C.FCStd",
+    "geometry_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "coordinate_system": "CSYS_PRODUCT",
+    "consequence": "non_safety_critical"
+  },
+  "units": {
+    "length": "mm",
+    "force": "N",
+    "mass": "kg",
+    "time": "s",
+    "temperature": "degC",
+    "stress": "MPa",
+    "energy": "mJ"
+  },
+  "requirements": [
+    {
+      "id": "REQ-STR-001",
+      "description": "Elastic tip deflection shall not exceed 0.50 mm",
+      "source": "BRKT-042 product requirements rev C",
+      "acceptance": {"quantity": "tip_displacement", "operator": "<=", "limit": 0.5, "unit": "mm"}
+    }
+  ],
+  "geometry_idealizations": [
+    {
+      "id": "GI-001",
+      "change": "Suppress cosmetic 0.2 mm edge breaks",
+      "justification": "Outside the bracket load path",
+      "preserved_properties": ["mass within 0.2 percent", "mount and load interfaces unchanged"],
+      "check": "Compare nominal and simplified mass properties"
+    }
+  ],
+  "materials": [
+    {
+      "id": "MAT-001",
+      "regions": ["bracket"],
+      "specification": "project-controlled aluminum specification",
+      "product_form_condition": "machined plate, specified temper",
+      "orientation": "L direction",
+      "property_source": "controlled material record MAT-AL-001 rev B",
+      "properties": [
+        {"name": "elastic_modulus", "value": 69000, "unit": "MPa", "temperature": 20, "temperature_unit": "degC"}
+      ],
+      "allowables": [
+        {"name": "yield", "value": 240, "unit": "MPa", "basis": "minimum specification value", "temperature": 20, "temperature_unit": "degC"}
+      ]
+    }
+  ],
+  "load_cases": [
+    {
+      "id": "LC-001",
+      "configuration": "nominal-machined",
+      "event": "rated actuator thrust",
+      "classification": "service",
+      "duty": "quasi-static",
+      "loads": [
+        {"type": "force", "value": [0, 0, -1200], "unit": "N", "application": "bearing bore distributed load", "source": "actuator datasheet DS-17 rev D"}
+      ],
+      "boundary_condition_ids": ["BC-001"],
+      "environment": {"temperature": 20, "temperature_unit": "degC"},
+      "requirement_ids": ["REQ-STR-001"],
+      "combination_rule": "single service event"
+    }
+  ],
+  "boundary_conditions": [
+    {
+      "id": "BC-001",
+      "type": "bolt_group_elastic_support",
+      "region": "base bolt interfaces",
+      "physical_basis": "joint stiffness calculation JNT-042 rev A",
+      "sensitivity": "vary translational stiffness plus/minus 25 percent"
+    }
+  ],
+  "analysis_cases": [
+    {
+      "id": "AC-STATIC-001",
+      "analysis_type": "static",
+      "release_driving": true,
+      "solver": {"name": "CalculiX", "version": "2.22", "interface": "FreeCAD FEM 1.1.2"},
+      "load_case_ids": ["LC-001"],
+      "material_ids": ["MAT-001"],
+      "idealization_ids": ["GI-001"],
+      "boundary_condition_ids": ["BC-001"],
+      "element_formulation": "second-order tetrahedral solid",
+      "contacts": [{"id": "CT-001", "type": "bonded_screening", "basis": "bracket is a single part"}],
+      "mesh": {"mesher": "Gmsh 4.13.1", "quality_evidence": "mesh-quality.csv", "result_extraction": "tip_named_region average displacement"},
+      "verification": {
+        "solver_log": "AC-STATIC-001.log",
+        "warnings_disposition": "No unresolved solver warnings",
+        "reaction_balance_percent": 0.4,
+        "reaction_balance_limit_percent": 1.0,
+        "energy_balance": {"status": "pass", "evidence": "energy-balance.csv"},
+        "analytical_comparison": {"method": "cantilever bounding model", "discrepancy_percent": 8.0, "acceptance_percent": 15.0, "evidence": "CALC-001.pdf"},
+        "mesh_convergence": [
+          {"level": 1, "characteristic_size": 4.0, "size_unit": "mm", "degrees_of_freedom": 18400, "quantity": "tip_displacement", "value": 0.431, "unit": "mm"},
+          {"level": 2, "characteristic_size": 2.5, "size_unit": "mm", "degrees_of_freedom": 55600, "quantity": "tip_displacement", "value": 0.443, "unit": "mm"},
+          {"level": 3, "characteristic_size": 1.6, "size_unit": "mm", "degrees_of_freedom": 161000, "quantity": "tip_displacement", "value": 0.447, "unit": "mm"}
+        ],
+        "convergence_acceptance_percent": 2.0,
+        "singularities": [{"location": "fixed-edge transition", "disposition": "not used for acceptance; displacement criterion evaluated at named tip region"}]
+      },
+      "results": [
+        {"requirement_id": "REQ-STR-001", "quantity": "tip_displacement", "value": 0.447, "unit": "mm", "criterion_met": true, "evidence": "results-table.csv"}
+      ],
+      "verdict": "PASS"
+    }
+  ],
+  "validation": {
+    "status": "planned",
+    "evidence": ["prototype displacement test TP-BRKT-042"]
+  },
+  "open_actions": [
+    {"id": "ACT-001", "severity": "major", "description": "Complete prototype displacement correlation", "owner": "test_owner", "status": "open"}
+  ],
+  "approval": {
+    "analysis_verdict": "CONDITIONAL",
+    "independent_review": "pending",
+    "release_decision": "withheld",
+    "authority": "product design authority",
+    "date": null,
+    "residual_risks": ["Prototype correlation remains open"]
+  }
+}

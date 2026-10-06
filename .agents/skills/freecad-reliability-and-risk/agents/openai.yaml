@@ -1,0 +1,4 @@
+interface:
+  display_name: "FreeCAD Reliability and Risk"
+  short_description: "Control FMEA, hazards, life evidence, and residual risk"
+  default_prompt: "Use $freecad-reliability-and-risk to analyze failure modes, hazards, reliability evidence, actions, and change impact for this product."

@@ -1,0 +1,8 @@
+{
+  "skill_name": "freecad-parametric-modeling",
+  "evals": [
+    {"id": 1, "prompt": "Model a production bracket by attaching every feature to generated faces.", "expected_output": "Uses datums/master references and defers cosmetic features to reduce topological fragility.", "files": [], "assertions": ["Uses explicit units.", "Fully constrains production sketches.", "Avoids generated-edge design vocabulary."]},
+    {"id": 2, "prompt": "Create a single FreeCAD body containing several manufactured parts.", "expected_output": "Builds individual controlled part definitions and routes their assembly separately.", "files": [], "assertions": ["One definition per manufactured item.", "Separates assembly occurrences.", "Checks final solid count."]},
+    {"id": 3, "prompt": "The nominal model recomputes; call it robust.", "expected_output": "Requires parameter-envelope cases, valid solids, invariants, and topology-transition review.", "files": [], "assertions": ["Tests boundary cases.", "Fails invalid object state.", "Does not equate nominal recompute with robustness."]}
+  ]
+}

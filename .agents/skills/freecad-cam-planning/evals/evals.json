@@ -1,0 +1,8 @@
+{
+  "skill_name": "freecad-cam-planning",
+  "evals": [
+    {"id": 1, "prompt": "Approve this G95 program because every F word is below the machine's mm/min limit.", "expected_output": "Computes effective feed from feed-per-revolution and spindle state and rejects unsafe values.", "files": [], "assertions": ["Tracks G94/G95.", "Tracks spindle mode and RPM.", "Fails unsafe effective feed."]},
+    {"id": 2, "prompt": "Preflight a multi-tool G-code file where the first tool is not approved.", "expected_output": "Checks every tool and fails the unapproved earlier tool.", "files": [], "assertions": ["Checks all tool changes.", "Requires machine/post/work-offset identity.", "Treats warnings as non-release."]},
+    {"id": 3, "prompt": "The FreeCAD Path preview is collision-free; release the code.", "expected_output": "Requires posted-code simulation, controller review, prove-out, and first-piece inspection.", "files": [], "assertions": ["Rejects preview-only approval.", "Checks machine-coordinate travel.", "Requires M5 and controlled end state."]}
+  ]
+}

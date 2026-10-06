@@ -1,0 +1,38 @@
+{
+  "skill_name": "freecad-reliability-and-risk",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a DFMEA and risk-closure plan for a vertical robot axis whose normally engaged brake must prevent a 50 kg carriage from falling after loss of power. The current team marked the row low priority because RPN is only 60.",
+      "expected_output": "Rejects RPN-only acceptance, traces hold function to gravity-drop hazard, verifies brake/life/fault controls, requires closed actions and named residual-risk approval.",
+      "files": [],
+      "assertions": [
+        "Escalates the high-severity mode regardless of a modest RPN.",
+        "Links function, failure mode, hazard, measures, tests and residual-risk approval.",
+        "Requires power-loss, hot/end-of-life brake and life evidence."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review PFMEA coverage for a machined aluminum robot housing. Burrs can damage an internal cable, an adhesive bond can be under-cured, and the CMM inspection program changed after a datum revision. Build an action and change-impact plan.",
+      "expected_output": "Defines process functions/modes/causes/effects, distinguishes prevention and detection, links critical characteristics and controls, contains escapes and invalidates affected inspection/risk evidence.",
+      "files": [],
+      "assertions": [
+        "Separates failure modes, causes, effects, prevention and detection controls.",
+        "Links PFMEA rows to process steps, control plans and verification.",
+        "Treats datum/CMM changes as evidence invalidation requiring review."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "A supplier changed the bearing and lubricant in a released robotic wrist. CAD interfaces are unchanged and the purchasing team wants to treat it as form-fit-function equivalent. Review reliability, FMECA and release impact.",
+      "expected_output": "Performs configuration/where-used impact, reopens bearing life, contamination, thermal, friction, safety and maintenance assumptions, updates failure/risk analysis and blocks release until evidence and approvals close.",
+      "files": [],
+      "assertions": [
+        "Does not accept geometric interchangeability as reliability equivalence.",
+        "Invalidates affected life, thermal, lubrication and risk evidence.",
+        "Requires configuration-specific verification and approval before release."
+      ]
+    }
+  ]
+}

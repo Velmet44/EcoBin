@@ -1,0 +1,2 @@
+characteristic_id,feature,process_state,nominal,lsl,usl,units,datum_reference,capability_id,measurement_id,control_plan_evidence,status
+CTQ-BORE-01,bearing_bore_01,final machined before assembly,20.0,19.988,20.0,mm,A|B|C,CAP-BORE-01,MS-BORE-01,CP-LINK-001,approved

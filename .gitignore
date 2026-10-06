@@ -1,0 +1,44 @@
+# FreeCAD backups
+*.FCBak
+*.FCStd1
+
+# ESP-IDF / firmware
+firmware/build/
+firmware/sdkconfig
+firmware/sdkconfig.old
+firmware/dependencies.lock
+firmware/managed_components/
+firmware/.emmylua/
+**/.vscode/
+**/.idea/
+
+# Python / AI model
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+ai-model/datasets/raw/
+ai-model/datasets/processed/
+*.pt
+*.pth
+*.onnx
+!ai-model/exports/.gitkeep
+
+# Electronics
+*.bak
+*.bck
+*-bak*
+
+# OS / temp
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.log
+
+# Media large raw (keep renders/photos via Git LFS later if needed)
+# Uncomment if videos get large:
+# media/videos/*.mp4
+# media/videos/*.mov
