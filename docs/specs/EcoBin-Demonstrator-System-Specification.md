@@ -5,13 +5,13 @@
 | Document field | Value |
 |---|---|
 | Document ID | ECO-SYS-SPEC-001 |
-| Revision | 0.1 — Initial detailed draft |
+| Revision | 0.2 — Procurement baseline aligned; design remains draft |
 | Status | Draft for project-owner review |
 | Date | 2026-10-06 |
 | Project | EcoBin |
 | Product maturity | Desktop/tabletop proof-of-concept model |
 | Primary native CAD tool | FreeCAD; exact version to be recorded when CAD begins |
-| Primary controller | Waveshare ESP32-P4-WIFI6-DEV-KIT, subject to exact variant confirmation |
+| Primary controller | Waveshare ESP32-P4-WIFI6-DEV-KIT single-board item; camera purchased separately; no bundled Basic Kit / A / B / C versions |
 | Units | mm, g, degrees, V, A, s unless stated otherwise |
 
 > **Scope warning:** This document specifies an educational/functional demonstrator intended to operate under controlled, ideal conditions. It is not a production design, a household appliance release, a safety assessment, or a declaration of Indian regulatory compliance. Where size, loads, thresholds, or part numbers are not yet known, the document identifies them as TBD or provisional rather than claiming they have been validated.
@@ -27,7 +27,7 @@ The project combines:
 1. A fixed, side-mounted input tray and trapdoor.
 2. A fixed camera and controlled illumination.
 3. A load sensor for item-presence detection.
-4. A local image classifier running on an ESP32-P4 development kit.
+4. A local image classifier running on an ESP32-P4 development board.
 5. Four waste chambers carried by a stepper-indexed rotating base.
 6. A servo-actuated trapdoor and gravity-fed drop path.
 7. An OLED status display.
@@ -88,7 +88,7 @@ The following are explicitly out of scope for this revision:
 | Carousel support | Turntable bearing or equivalent support; motor provides torque, not the sole structural support |
 | Position reference | One Hall-effect home sensor and one magnet; subsequent stations tracked by step count |
 | Trapdoor actuation | One hobby servo and a simple linkage |
-| Controller | One ESP32-P4-WIFI6 development kit; no separate ESP32-CAM controller |
+| Controller | One ESP32-P4-WIFI6 development board purchased as a single board item; no separate ESP32-CAM controller |
 | Camera interface | Camera module compatible with the selected board's MIPI-CSI connector; OV5647 is the documented starting candidate |
 | Inference | On-device using Espressif ESP-DL, with model preparation/quantization performed on a development computer |
 | Network use | Optional for development only; the demo classification cycle must work locally |
@@ -104,7 +104,7 @@ The following are explicitly out of scope for this revision:
 6. The four chambers are model-scale, lightweight, and can be printed separately or as four sectors.
 7. The carousel does not need to rotate while the trapdoor is open.
 8. The chosen ESP32-P4 board variant has the expected PSRAM, camera connector, and usable GPIOs; verify the exact product SKU before ordering.
-9. A compatible camera is acquired with the correct CSI ribbon/cable orientation and connector pitch for the exact kit revision.
+9. A compatible camera is acquired separately with the correct CSI ribbon/cable orientation and connector pitch for the selected board revision.
 10. Component dimensions, object-size limits, and all enclosure dimensions remain TBD until a packaging layout is established.
 
 ### 2.3 Terms
@@ -335,8 +335,8 @@ These are demonstrator control responses, not safety-rated functions.
 
 ### 6.1 Controller and camera
 
-- Main board: Waveshare ESP32-P4-WIFI6-DEV-KIT, exact revision/SKU to be recorded in the project BOM.
-- Camera: compatible MIPI-CSI module; OV5647 is the documented starting candidate for the kit.
+- Main board: Waveshare ESP32-P4-WIFI6-DEV-KIT single-board item (Robu seller reference R255962 is the board-only candidate; confirm exact revision and package contents before ordering).
+- Camera: separately purchased compatible MIPI-CSI module; OV5647 is the documented starting candidate.
 - Do not add a separate ESP32-CAM controller in the baseline architecture.
 - Use the P4 for image capture coordination, local inference, state machine, OLED, load cell, Hall sensor, stepper control, and servo control.
 - The board's ESP32-C6 connectivity companion is not needed for normal classification. Wi-Fi may be used for development/debugging only; loss of network must not prevent a local demo cycle.
@@ -358,7 +358,7 @@ These are demonstrator control responses, not safety-rated functions.
 | Hall sensor | Digital GPIO input | Used for carousel home reference |
 | Stepper driver | STEP, DIR, ENABLE GPIO outputs | Driver power/current set to selected motor datasheet |
 | Servo | PWM-capable output | Servo has a dedicated 5 V supply rail |
-| OLED | I²C | Use board pins confirmed free in the exact kit schematic |
+| OLED | I²C | Use board pins confirmed free in the exact single-board schematic |
 | LED | 5 V supply with suitable switch/driver if GPIO-controlled | Do not power a high-current light directly from a GPIO |
 | Optional drop sensor | IR break-beam digital input | Optional; not required for the first model |
 
@@ -368,7 +368,7 @@ All GPIO assignments remain TBD until the exact P4 board schematic and reserved 
 
 Baseline power partition:
 
-- P4 dev kit: regulated 5 V through its supported USB-C input.
+- P4 board: regulated 5 V through its supported USB-C input.
 - Stepper motor/driver: motor supply selected for the exact NEMA-17 and DRV8825 carrier, provisionally 12 V for the model.
 - Servo: separate regulated 5 V rail sized for its transient current.
 - Sensor/light rails: use the correct module voltage; avoid powering the LED ring or servo from a GPIO.
@@ -517,26 +517,26 @@ Exact wording and symbols may change for the exhibit/demo. The screen is informa
 
 ## 10. BOM baseline
 
-No costs are included. Exact orderable SKUs are not yet frozen.
+The sourced, itemized cost and procurement snapshot is maintained in `docs/bom/EcoBin-Demonstrator-BOM.csv`; this specification remains cost-independent. The BOM uses separate order lines and excludes preassembled project bundles. A priced candidate is not automatically a fit-approved component: unresolved electrical and mechanical checks remain open until the wiring diagram and CAD packaging are complete.
 
 ### 10.1 Purchased electronics and motion parts
 
 | Qty. | Part | Baseline specification | Status |
 |---:|---|---|---|
-| 1 | ESP32-P4-WIFI6-DEV-KIT | Waveshare kit; confirm exact P4/PSRAM revision | Selected architecture; exact SKU TBD |
-| 1 | MIPI-CSI camera module | Board-compatible OV5647 candidate | Exact supplier/SKU and inclusion in kit TBD |
-| 1 | Single-point load cell | Suggested 5 kg nominal capacity for model-scale presence sensing | Confirm payload range and mounting geometry |
-| 1 | HX711 board | Load-cell ADC/interface | Candidate selected |
-| 1 | NEMA-17 stepper | Four-wire bipolar; configure steps/revolution from exact datasheet | Frame size selected; exact SKU/current TBD |
-| 1 | DRV8825 carrier | STEP/DIR driver for selected motor | Candidate selected; current setting TBD |
-| 1 | MG90S micro servo | Trapdoor actuation | Candidate selected; torque/travel to be checked against printed flap |
-| 1 | Hall-effect switch/module | Digital home reference | Exact package/logic polarity TBD |
-| 1 | Small magnet | Carousel home target | Size/retention TBD |
-| 1 | I²C OLED | SSD1306-compatible module | Candidate selected; exact size TBD |
-| 1 | Diffuse white LED ring/light | Fixed camera illumination | Exact voltage/current TBD |
-| 1 | 12 V DC motor supply | For stepper system if compatible with chosen motor/driver | Rating TBD from selected motor and driver |
-| 1 | 5 V USB-C supply | P4 development board | Use board's required input specification |
-| 1 | Regulated 5 V servo supply | Servo power; common signal reference with P4 as needed | Rating TBD from servo load |
+| 1 | ESP32-P4-WIFI6-DEV-KIT single-board item | Waveshare P4/C6 board; Robu seller reference R255962 is the current board-only candidate | Confirm exact revision, package contents, price, and stock; do not purchase Waveshare bundled Basic Kit / A / B / C versions |
+| 1 | MIPI-CSI camera module | Waveshare RPi Camera (B), OV5647, standalone camera listing | Candidate; confirm P4 sensor-driver support, cable orientation, connector pitch, and board revision before ordering; camera package includes its own flex leads |
+| 1 | Single-point load cell | 5 kg nominal capacity; standalone product | Matches the spec baseline; confirm mounting span and demonstration-object mass range in CAD |
+| 1 | HX711 board | Standalone load-cell ADC/interface module | Purchase separately from the load cell |
+| 1 | NEMA-17 stepper | Robocraze 17HS8401S candidate; four-wire bipolar if confirmed | Provisional; seller listing does not expose rated phase current; verify current and step angle before pairing with a driver |
+| 1 | DRV8825 carrier | STEP/DIR driver candidate | Provisional; set current and provide cooling per exact carrier and motor documentation |
+| 1 | MG90S micro servo | Robocraze 180° trapdoor actuator candidate | Verify torque, endpoints, and linkage travel against the printed flap |
+| 1 | Hall-effect sensor module | A3144EUA open-collector module candidate | Use a 3.3 V signal pull-up for the P4 GPIO; verify module supply/output details because seller copy is inconsistent |
+| 1 | Neodymium disc magnet | Probots 5 × 3 mm candidate | Verify sensor trigger distance and printed retention before finalizing |
+| 1 | I²C OLED | Robocraze 1.3-inch 128 × 64 candidate | Controller IC remains TBD; confirm driver/library compatibility before ordering |
+| 1 pack each | White LEDs and current-limit resistors | Robocraze 5 mm white LED pack of 10 and 220 Ω resistor pack of 10 | Separate commodity component packs; emitter count, current, and printed diffuser performance TBD after camera testing |
+| 1 | 12 V DC motor supply | Robocraze 12 V / 5 A enclosed adapter candidate | Confirm barrel size/polarity and adequacy after motor current is resolved |
+| 1 | USB-C power supply | Robocraze/Raspberry Pi 5.1 V / 5 A USB-C adapter candidate for P4 board | Separate supply; verify selected board's input requirement |
+| 1 | Regulated 5 V servo supply | LM2596 buck module from the 12 V rail | Adjust and verify with a meter before attaching the servo; size against measured servo transient load |
 | 1 optional | IR break-beam pair | Detect item clearing the guide | Optional for first build |
 | As needed | Headers, connectors, wires, heat-shrink, switch, fuse, standoffs | Interconnect and mounting | Exact quantities after wiring diagram |
 
@@ -704,7 +704,7 @@ Build the fixed tray, separate scale support, gate flap, servo bracket/linkage, 
 
 ### WP-4 — Camera and P4 bring-up
 
-Confirm exact kit/camera compatibility, camera capture, fixed illumination, OLED, HX711, Hall sensor, stepper driver, and servo I/O using the selected P4 board.
+Confirm exact board/camera compatibility, camera capture, fixed illumination, OLED, HX711, Hall sensor, stepper driver, and servo I/O using the selected P4 board.
 
 ### WP-5 — Model pipeline
 
@@ -761,9 +761,9 @@ Large datasets, model binaries, and video should be tracked with Git LFS or anot
 | OI-002 | What are the maximum test-item dimensions and mass? | Blocking for tray/gate/chute | TBD |
 | OI-003 | What chamber volume and shape should be used? | High | TBD; equal model chambers are acceptable initially |
 | OI-004 | Are the chambers four wedge sectors or four separate containers on the carrier? | High | TBD |
-| OI-005 | What exact P4 kit SKU/revision is available, and is the matching camera included? | Blocking for electronics wiring | TBD; confirm before order |
-| OI-006 | What exact compatible OV5647 CSI camera module/cable will be used? | Blocking for camera integration | TBD |
-| OI-007 | What exact NEMA-17 stepper current/step angle and DRV8825 carrier are selected? | High | TBD from available hardware |
+| OI-005 | What exact board-only P4 SKU/revision is being purchased, and are its package contents confirmed to be a single board rather than a bundled version? | Blocking for electronics wiring | Robu ref R255962 is the board-only candidate; current price/package contents require reconfirmation |
+| OI-006 | What exact compatible OV5647 CSI camera module/cable will be used? | Blocking for camera integration | Waveshare RPi Camera (B) SKU 8193 is a separate candidate; P4 driver/connector compatibility remains to be verified |
+| OI-007 | What exact NEMA-17 stepper current/step angle and DRV8825 carrier are selected? | High | Robocraze 17HS8401S and DRV8825 are price candidates; seller listing omits motor phase current, so do not order until matched |
 | OI-008 | What is the trapdoor aperture size, flap travel, and servo mounting arrangement? | High | TBD after object envelope |
 | OI-009 | What are the tray dimensions and load-cell mounting span? | High | TBD |
 | OI-010 | What is the controlled dataset and fixed held-out test set? | High for AI acceptance | TBD |
@@ -772,7 +772,7 @@ Large datasets, model binaries, and video should be tracked with Git LFS or anot
 | OI-013 | What is the maximum acceptable demo cycle time? | Medium | TBD |
 | OI-014 | What access-panel strategy permits chamber replacement? | Medium | Baseline: removable panel/top cover |
 | OI-015 | Should an optional chute break-beam sensor be included? | Low | Not in first BOM baseline |
-| OI-016 | Which filament and printer profile will be used? | Medium | Baseline suggestion: PLA/PLA+; exact profile TBD |
+| OI-016 | Which filament and printer profile will be used? | Medium | eSun 1.75 mm PLA+ cold-white is a candidate; exact profile and spool count depend on printer and slicer output |
 | OI-017 | What is the raw-dataset/model artifact versioning policy? | Medium | TBD before dataset ingestion |
 
 ### 15.1 Items that must be decided before detailed CAD
@@ -788,7 +788,7 @@ At minimum, resolve OI-001 through OI-009 sufficiently to make a layout and fit 
 | Chamber mouth does not align with the side drop station | Item lands on the deck or wrong chamber | Establish station radius and 90-degree pattern as master layout datums |
 | Carousel binding or missed steps | Wrong chamber reaches the tray | Support carrier on bearing, reduce acceleration, home on startup, verify 40-cycle routing |
 | Tray scale is affected by servo/linkage forces | False presence/unstable reading | Separate scale support from gate support; freeze weight processing during motion |
-| Camera connector/sensor mismatch | No image capture | Use a board-compatible CSI camera; verify exact kit revision and cable before ordering |
+| Camera connector/sensor mismatch | No image capture | Use a board-compatible CSI camera; verify exact board revision, sensor driver, and cable before ordering |
 | Poor lighting/background variability | Classifier errors | Fixed camera mount, diffuse light, repeatable tray background and item placement |
 | Model confidence appears high on unknown inputs | Wrong destination | Use D fallback threshold; include unknown examples; report model limitations |
 | 3D printed carrier joint loosens | Chamber position drifts | Keyed joints, through-bolts, carrier alignment test, inspect before demo |
@@ -799,6 +799,7 @@ At minimum, resolve OI-001 through OI-009 sufficiently to make a layout and fit 
 
 ## 17. Change control
 
+- Rev 0.2 aligns the controller/camera as separate order lines and records current procurement candidates; it does not close the fit, motor-current, or power-rail validation actions.
 - The project owner approves changes to chamber labels, hardware baseline, camera interface, motor architecture, or print-envelope rule.
 - Changes to class mapping must update firmware configuration, model labels, display text, and this specification.
 - Changes to carousel diameter, station radius, chamber openings, bearing, or motor mount require a fresh collision/alignment review.
