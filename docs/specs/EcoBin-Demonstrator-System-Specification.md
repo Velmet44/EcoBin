@@ -5,7 +5,7 @@
 | Document field | Value |
 |---|---|
 | Document ID | ECO-SYS-SPEC-001 |
-| Revision | 0.2 — Procurement baseline aligned; design remains draft |
+| Revision | 0.3 — Single 12 V input; P4 header-powered; design remains draft |
 | Status | Draft for project-owner review |
 | Date | 2026-10-06 |
 | Project | EcoBin |
@@ -366,15 +366,16 @@ All GPIO assignments remain TBD until the exact P4 board schematic and reserved 
 
 ### 6.4 Power rails
 
-Baseline power partition:
+Baseline power partition (single 12 V mains input for the whole demonstrator):
 
-- P4 board: regulated 5 V through its supported USB-C input.
-- Stepper motor/driver: motor supply selected for the exact NEMA-17 and DRV8825 carrier, provisionally 12 V for the model.
-- Servo: separate regulated 5 V rail sized for its transient current.
-- Sensor/light rails: use the correct module voltage; avoid powering the LED ring or servo from a GPIO.
-- Establish a common signal ground between P4, motor driver, and servo supply where required for control signals, while keeping motor current paths away from low-level sensor wiring.
-- Add a master power switch and a clearly accessible power connector to the model.
-- Final supply current ratings depend on the exact motor, servo, LED, and board variants.
+- 12 V adapter input: one enclosed 12 V / 5 A adapter feeds a fused, switched low-voltage distribution block.
+- Stepper motor/driver: direct 12 V branch to the DRV8825 carrier, sized for the exact NEMA-17 and driver current.
+- Servo: separate LM2596 buck branch set to 5.0 V (SERVO module), sized for its transient current.
+- P4 board and low-current electronics: separate LM2596 buck branch set to 5.0 V (LOGIC module) feeding the P4 40-pin header `VCC_5V` and `GND` only; never `ESP_3V3` or `VBUS_OUT`. USB-C is used for flashing/debug data only, and USB power must never be connected while the header rail is powered.
+- Sensor/light rails: use the correct module voltage; avoid powering the discrete LEDs or servo from a GPIO.
+- Establish a common star ground between P4, motor driver, and both buck outputs where required for control signals, while keeping motor current paths away from low-level sensor wiring.
+- Add a master power switch, an inline fuse, and a clearly accessible power connector to the model.
+- Final supply current ratings depend on the exact motor, servo, LED, and board variants; re-verify the 12 V 5 A adequacy against measured motor current.
 
 ---
 
@@ -534,11 +535,11 @@ The sourced, itemized cost and procurement snapshot is maintained in `docs/bom/E
 | 1 | Neodymium disc magnet | Probots 5 × 3 mm candidate | Verify sensor trigger distance and printed retention before finalizing |
 | 1 | I²C OLED | Robocraze 1.3-inch 128 × 64 candidate | Controller IC remains TBD; confirm driver/library compatibility before ordering |
 | 1 pack each | White LEDs and current-limit resistors | Robocraze 5 mm white LED pack of 10 and 220 Ω resistor pack of 10 | Separate commodity component packs; emitter count, current, and printed diffuser performance TBD after camera testing |
-| 1 | 12 V DC motor supply | Robocraze 12 V / 5 A enclosed adapter candidate | Confirm barrel size/polarity and adequacy after motor current is resolved |
-| 1 | USB-C power supply | Robocraze/Raspberry Pi 5.1 V / 5 A USB-C adapter candidate for P4 board | Separate supply; verify selected board's input requirement |
-| 1 | Regulated 5 V servo supply | LM2596 buck module from the 12 V rail | Adjust and verify with a meter before attaching the servo; size against measured servo transient load |
+| 1 | 12 V DC supply (single mains input) | Robocraze 12 V / 5 A enclosed adapter candidate | Confirm barrel size/polarity and adequacy against measured motor plus both buck loads |
+| 1 | Regulated 5 V logic supply | Second LM2596 buck module (LOGIC) from the 12 V rail, feeding P4 header VCC_5V/GND | Adjust to 5.0 V and verify with a meter before connecting; never connect USB-C power while header-powered |
+| 1 | Regulated 5 V servo supply | First LM2596 buck module (SERVO) from the 12 V rail | Adjust and verify with a meter before attaching the servo; size against measured servo transient load; label both buck modules |
 | 1 optional | IR break-beam pair | Detect item clearing the guide | Optional for first build |
-| As needed | Headers, connectors, wires, heat-shrink, switch, fuse, standoffs | Interconnect and mounting | Exact quantities after wiring diagram |
+| As needed | Headers, connectors, 12 V distribution block, wires, heat-shrink, switch, fuse, standoffs | Interconnect, single-input distribution, and mounting | Exact quantities after wiring diagram |
 
 ### 10.2 Non-printed mechanical hardware
 
@@ -799,7 +800,7 @@ At minimum, resolve OI-001 through OI-009 sufficiently to make a layout and fit 
 
 ## 17. Change control
 
-- Rev 0.2 aligns the controller/camera as separate order lines and records current procurement candidates; it does not close the fit, motor-current, or power-rail validation actions.
+- Rev 0.3 moves the whole demonstrator to a single 12 V input with separate SERVO/LOGIC bucks and header-powered P4; it does not close the motor-current, barrel/switch/fuse selection, or wiring-diagram validation actions.
 - The project owner approves changes to chamber labels, hardware baseline, camera interface, motor architecture, or print-envelope rule.
 - Changes to class mapping must update firmware configuration, model labels, display text, and this specification.
 - Changes to carousel diameter, station radius, chamber openings, bearing, or motor mount require a fresh collision/alignment review.
