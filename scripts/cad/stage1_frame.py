@@ -92,6 +92,9 @@ def build_stepper_mount():
     doc = fresh_doc('PR019_StepperMount')
     plate = Part.makeBox(50.0, 50.0, 6.0, V(-25.0, -25.0, 0.0))
     plate = plate.cut(Part.makeCylinder(12.0, 6.0, V(0, 0, 0)))  # motor boss clearance
+    for hx in (-20.0, 20.0):                                    # frame attachment
+        for hy in (-20.0, 20.0):
+            plate = plate.cut(Part.makeCylinder(M3_CLEAR / 2.0, 6.0, V(hx, hy, 0.0)))
     # NEMA-17 M3 pattern on 31 mm BCD: holes at (±15.5, ±15.5).
     import math
     half = NEMA_BCD / 2.0  # 31 mm square pattern -> +/-15.5 mm
@@ -111,7 +114,7 @@ def build_hub():
     barrel = Part.makeCylinder(12.5, 20.0, V(0, 0, -20.0))
     solid = flange.fuse(barrel)
     solid = solid.cut(Part.makeCylinder(MOTOR_SHAFT / 2.0, 26.0, V(0, 0, -20.0)))
-    solid = hole_plate(solid, M3_CLEAR, 28.0, 4, 0.0, 6.0)  # carrier bolts
+    solid = hole_plate(solid, M3_CLEAR, 34.0, 4, 0.0, 6.0)  # carrier bolts (match Q r17)
     # Radial set-screw hole (drill; tap M3 at build): along +X at barrel mid.
     tool = Part.makeCylinder(M3_TAP_DRILL / 2.0, 25.0, V(0, 0, -10.0))
     tool = tool.rotate(V(0, 0, -10.0), V(0, 1, 0), 90.0)

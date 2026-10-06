@@ -16,9 +16,9 @@ from FreeCAD import Vector as V
 
 OUT_DIR = 'E:/Project/EcoBin/3D-Design/parts/'
 
-TRAY_OPEN = 80.0   # TrayOpening
-FLAP_D = 90.0      # FlapDia
-GUIDE_ID = 90.0    # GuideDia
+TRAY_OPEN = 76.0   # TrayOpening
+FLAP_D = 86.0      # FlapDia (edge-hinged, swings inside guide bore)
+GUIDE_ID = 94.0    # GuideDia
 M3 = 3.2
 M5 = 5.5
 
@@ -84,29 +84,34 @@ def build_scale_support():
 
 
 def build_flap():
+    # Edge-hinged trapdoor: hinge axis along X at the -Y rim (y=-FLAP_D/2).
+    # Lugs at x=+/-25; pin bore along X; blocks in PR-008 share this frame.
     doc = fresh_doc('PR007_Flap')
     disc = Part.makeCylinder(FLAP_D / 2.0, 4.0, V(0, 0, 0))
-    # Two hinge lugs at rim (+/-X), Ø3.2 pin bore along Y.
+    pin_y = -40.0  # hinge line just outside the 76 opening rim
     for sx in (-1.0, 1.0):
-        lug = Part.makeBox(12.0, 10.0, 8.0, V(sx * 45.0 - 6.0, -5.0, 0.0))
-        pin = Part.makeCylinder(1.6, 12.0, V(sx * 45.0 - 6.0, -6.0, 4.0))
-        pin = pin.rotate(V(sx * 45.0 - 6.0, 0.0, 4.0), V(1, 0, 0), 90.0)
-        lug = lug.cut(pin)
+        lug = Part.makeBox(12.0, 14.0, 8.0, V(sx * 25.0 - 6.0, -46.0, 0.0))
         disc = disc.fuse(lug)
+    pin = Part.makeCylinder(1.6, 100.0, V(-50.0, pin_y, 4.0))
+    pin = pin.rotate(V(0, 0, 4.0), V(0, 1, 0), 90.0)
+    disc = disc.cut(pin)
     o = doc.addObject('Part::Feature', 'TrapdoorFlap')
     o.Shape = disc
     finish(doc, 'PR-007_TrapdoorFlap.FCStd', color=(1.00, 0.75, 0.35))
 
 
 def build_hinges():
+    # Same frame as the flap: hinge line y=-FLAP_D/2, pin axis along X at z=4.
+    # Blocks sit outboard of the flap lugs; pin bore passes pin + lug bores.
     doc = fresh_doc('PR008_HingeSupports')
-    for i, sx in enumerate((-48.0, 48.0)):
-        blk = Part.makeBox(16.0, 14.0, 12.0, V(sx - 8.0, -7.0, 0.0))
-        pin = Part.makeCylinder(1.6, 16.0, V(sx - 8.0, -7.0, 8.0))
-        pin = pin.rotate(V(sx, 0.0, 8.0), V(1, 0, 0), 90.0)
+    pin_y = -40.0  # must match flap hinge line
+    for i, sx in enumerate((-40.0, 40.0)):
+        blk = Part.makeBox(14.0, 14.0, 14.0, V(sx - 7.0, pin_y - 7.0, -8.0))
+        pin = Part.makeCylinder(1.6, 16.0, V(sx - 8.0, pin_y, 4.0))
+        pin = pin.rotate(V(0, 0, 4.0), V(0, 1, 0), 90.0)
         blk = blk.cut(pin)
-        blk = blk.cut(Part.makeCylinder(M3 / 2.0, 12.0, V(sx - 4.0, 0.0, 0.0)))
-        blk = blk.cut(Part.makeCylinder(M3 / 2.0, 12.0, V(sx + 4.0, 0.0, 0.0)))
+        blk = blk.cut(Part.makeCylinder(M3 / 2.0, 14.0, V(sx, pin_y - 3.0, -8.0)))
+        blk = blk.cut(Part.makeCylinder(M3 / 2.0, 14.0, V(sx, pin_y + 3.0, -8.0)))
         o = doc.addObject('Part::Feature', 'HingeSupport_%s' % ('L' if i == 0 else 'R'))
         o.Shape = blk
     finish(doc, 'PR-008_HingeSupports.FCStd')

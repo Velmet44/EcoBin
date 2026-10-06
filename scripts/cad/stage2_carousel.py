@@ -21,7 +21,7 @@ from FreeCAD import Vector as V
 OUT_DIR = 'E:/Project/EcoBin/3D-Design/parts/'
 
 # ---- mirrored master values ----
-ROTOR_R = 130.0    # RotorDia / 2
+ROTOR_R = 140.0    # RotorDia 280 / 2 (rim kept >=3 mm past bin pocket)
 R_ST = 80.0        # R_station
 CARRIER_T = 12.0   # CarrierThk
 MOUTH = 100.0      # MouthDia / ChamberDia
@@ -65,6 +65,8 @@ def build_quadrant(docname, filename, center_deg):
     sec = Part.makeCylinder(ROTOR_R, CARRIER_T, V(0, 0, 0), V(0, 0, 1), 90.0)
     sec = sec.rotate(V(0, 0, 0), V(0, 0, 1), center_deg - 45.0)
     sec = sec.cut(Part.makeCylinder(13.0, CARRIER_T, V(0, 0, 0)))  # hub barrel clearance
+    hx, hy = polar(17.0, center_deg)                            # hub flange bolt
+    sec = sec.cut(Part.makeCylinder(M3 / 2.0, CARRIER_T, V(hx, hy, 0)))
     px, py = polar(R_ST, center_deg)                               # bin pocket
     sec = sec.cut(Part.makeCylinder(FLANGE_D / 2.0 + 1.0, FLANGE_T,
                                     V(px, py, CARRIER_T - FLANGE_T)))
