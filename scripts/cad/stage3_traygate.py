@@ -6,12 +6,14 @@ Run inside FreeCAD via the FreeCAD MCP execute_code tool:
 Creates seven NEW documents (one file per part) in 3D-Design/parts/.
 Re-running wipes and rebuilds those seven docs only.
 
-Local coordinates, origin at part center-bottom unless noted.
-Load-cell M5 pattern and servo ear slots are placeholders (TBD notes).
+Drop-path chain (world Z at station): bridge top 248 / flange 248..253 /
+support 253..261 / tray 261..267. Flap origin z=241 (pin line z=247);
+pin bosses at z=239 (bore z=247). Support M5 pattern TBD vs cell drawing.
 """
 
 import FreeCAD as App
 import Part
+import math
 from FreeCAD import Vector as V
 
 OUT_DIR = 'E:/Project/EcoBin/3D-Design/parts/'
@@ -50,7 +52,6 @@ def finish(doc, filename, color=(0.85, 0.85, 0.85)):
 
 
 def bolt_circle(solid, drill, circle_dia, count, z0, z1):
-    import math
     for i in range(count):
         a = math.radians(360.0 * i / count)
         x = circle_dia / 2.0 * math.cos(a)
@@ -72,27 +73,36 @@ def build_tray():
 def build_scale_support():
     doc = fresh_doc('PR006_ScaleSupport')
     # Frame plate: carries tray above, bolts to 5 kg load cell below.
-    # Cell M5 pattern placeholder: 2 holes, 60 mm spacing (TBD vs cell drawing).
+    # Cell M5 pattern placeholder (TBD vs cell drawing): kept clear of bore.
     plate = Part.makeBox(140.0, 140.0, 8.0, V(-70.0, -70.0, 0.0))
     plate = plate.cut(Part.makeCylinder(TRAY_OPEN / 2.0, 8.0, V(0, 0, 0)))
     plate = bolt_circle(plate, M3, 120.0, 4, 0.0, 8.0)
-    for sx in (-30.0, 30.0):
+    for sx in (-45.0, 45.0):
         plate = plate.cut(Part.makeCylinder(M5 / 2.0, 8.0, V(sx, 0.0, 0.0)))
+    # Bridge-grid holes mate the support to the gantry bridge.
+    for hx in (-52.0, 52.0):
+        for hy in (-32.0, 32.0):
+            plate = plate.cut(Part.makeCylinder(M3 / 2.0, 8.0, V(hx, hy, 0.0)))
+    # Guide-flange pilots (blind-tap M3 from below at assembly).
+    for k in range(4):
+        a = math.radians(45.0 + 90.0 * k)
+        plate = plate.cut(Part.makeCylinder(2.5 / 2.0, 8.0,
+                                            V(59.0 * math.cos(a), 59.0 * math.sin(a), 0.0)))
     o = doc.addObject('Part::Feature', 'ScaleSupport')
     o.Shape = plate
     finish(doc, 'PR-006_ScaleSupport.FCStd', color=(0.60, 0.70, 0.85))
 
 
 def build_flap():
-    # Edge-hinged trapdoor, single lug + single diamond block (PR-008).
-    # Shared pin line: local y=-34, z=4 (world y=-34, z=244 at assembly).
+    # Edge-hinged trapdoor, single centered lug + two pin bosses (PR-008).
+    # Shared pin line: local y=-40, z=6 (world y=-40, z=249 at assembly).
     # Origin = flap center when closed.
     doc = fresh_doc('PR007_Flap')
     disc = Part.makeCylinder(FLAP_D / 2.0, 4.0, V(0, 0, 0))
-    lug = Part.makeBox(10.0, 16.0, 8.0, V(16.0, -47.0, 0.0))
+    lug = Part.makeBox(8.0, 14.0, 8.0, V(-4.0, -46.0, 0.0))
     disc = disc.fuse(lug)
-    pin = Part.makeCylinder(1.6, 40.0, V(10.0, -34.0, 4.0))
-    pin = pin.rotate(V(0, 0, 4.0), V(0, 1, 0), 90.0)
+    pin = Part.makeCylinder(1.6, 60.0, V(-30.0, -40.0, 6.0))
+    pin = pin.rotate(V(0, 0, 6.0), V(0, 1, 0), 90.0)
     disc = disc.cut(pin)
     o = doc.addObject('Part::Feature', 'TrapdoorFlap')
     o.Shape = disc
@@ -100,15 +110,15 @@ def build_flap():
 
 
 def build_hinges():
-    # SINGLE 7 mm diamond block on the pin line (fits the mouth-bore band).
-    # Assembly places its origin at world (117, -33.5, 234); pin = M3 screw.
+    # Pin boss inserts press into the guide-tube wall (one each side).
+    # Assembly places two links on the pin line; pin = M3 rod (BOM line TBD).
     doc = fresh_doc('PR008_HingeSupports')
-    blk = Part.makeBox(7.0, 7.0, 14.0, V(-3.5, -3.5, 0.0))
+    blk = Part.makeBox(6.0, 6.0, 14.0, V(-3.0, -3.0, 0.0))
     blk = blk.rotate(V(0, 0, 0), V(0, 0, 1), 45.0)
-    pin = Part.makeCylinder(1.6, 20.0, V(-10.0, -0.5, 10.0))
-    pin = pin.rotate(V(0, 0, 10.0), V(0, 1, 0), 90.0)
+    pin = Part.makeCylinder(1.6, 20.0, V(-10.0, 0.0, 8.0))
+    pin = pin.rotate(V(0, 0, 8.0), V(0, 1, 0), 90.0)
     blk = blk.cut(pin)
-    o = doc.addObject('Part::Feature', 'HingeBlock')
+    o = doc.addObject('Part::Feature', 'PinBoss')
     o.Shape = blk
     finish(doc, 'PR-008_HingeSupports.FCStd')
 
@@ -144,6 +154,7 @@ def build_linkage():
 
 def build_guide():
     # Flange sits on bridge top; tube hangs below into the bridge mouth.
+    # Flange bolts (r59 @45 deg) thread up into the support pilots.
     # Assembly places flange base at bridge-top level.
     doc = fresh_doc('PR004_DropGuide')
     tube = Part.makeCylinder(53.0, 18.0, V(0, 0, -18.0))
@@ -151,7 +162,10 @@ def build_guide():
     flange = Part.makeCylinder(65.0, 5.0, V(0, 0, 0))
     flange = flange.cut(Part.makeCylinder(GUIDE_ID / 2.0, 5.0, V(0, 0, 0)))
     solid = tube.fuse(flange)
-    solid = bolt_circle(solid, M3, 118.0, 4, 0.0, 5.0)
+    for k in range(4):
+        a = math.radians(45.0 + 90.0 * k)
+        solid = solid.cut(Part.makeCylinder(M3 / 2.0, 5.0,
+                                            V(59.0 * math.cos(a), 59.0 * math.sin(a), 0.0)))
     o = doc.addObject('Part::Feature', 'DropGuide')
     o.Shape = solid
     finish(doc, 'PR-004_DropGuide.FCStd')

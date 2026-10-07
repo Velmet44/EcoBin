@@ -67,7 +67,7 @@ def build_quadrant(docname, filename, center_deg):
     sec = sec.cut(Part.makeCylinder(13.0, CARRIER_T, V(0, 0, 0)))  # hub barrel clearance
     hx, hy = polar(17.0, center_deg)                            # hub flange bolt
     sec = sec.cut(Part.makeCylinder(M3 / 2.0, CARRIER_T, V(hx, hy, 0)))
-    px, py = polar(R_ST, center_deg)                               # bin pocket
+    px, py = polar(R_ST, center_deg)                               # bin pocket Ø112 x 5
     sec = sec.cut(Part.makeCylinder(FLANGE_D / 2.0 + 1.0, FLANGE_T,
                                     V(px, py, CARRIER_T - FLANGE_T)))
     for s in (-45.0, 45.0):                                       # joint half-holes
@@ -79,22 +79,26 @@ def build_quadrant(docname, filename, center_deg):
 
 
 def build_chamber(docname, filename):
+    # Foot flange hangs BELOW the body so it drops into the carrier pocket
+    # (pocket floor 75 = flange bottom at assembly z80-5); mouth stays on datum.
     doc = fresh_doc(docname)
     outer = Part.makeCylinder(MOUTH / 2.0, CHAMBER_H, V(0, 0, 0))
     inner = Part.makeCylinder(MOUTH / 2.0 - WALL, CHAMBER_H - WALL, V(0, 0, WALL))
     body = outer.cut(inner)
-    body = body.fuse(Part.makeCylinder(FLANGE_D / 2.0, FLANGE_T, V(0, 0, 0)))
+    body = body.fuse(Part.makeCylinder(FLANGE_D / 2.0, FLANGE_T, V(0, 0, -FLANGE_T)))
     o = doc.addObject('Part::Feature', 'ChamberBin')
     o.Shape = body
     finish(doc, filename, color=(0.85, 0.85, 0.85))
 
 
 def build_clips():
+    # Single centered clip master; the assembly instances it 8x (anti-rotation
+    # stops at r100/r125, 45 deg + 90 k). Print one, make eight.
     doc = fresh_doc('PR018_Clips')
-    base = Part.makeBox(20.0, 12.0, 4.0, V(0, 0, 0))
-    base = base.cut(Part.makeCylinder(M3 / 2.0, 4.0, V(10.0, 6.0, 0.0)))
-    upright = Part.makeBox(4.0, 12.0, 14.0, V(0, 0, 4.0))
-    o = doc.addObject('Part::Feature', 'RetentionClip')
+    base = Part.makeBox(20.0, 12.0, 4.0, V(-10.0, -6.0, 0.0))
+    base = base.cut(Part.makeCylinder(M3 / 2.0, 4.0, V(0.0, 0.0, 0.0)))
+    upright = Part.makeBox(4.0, 12.0, 9.0, V(-2.0, -6.0, 4.0))
+    o = doc.addObject('Part::Feature', 'ClipMaster')
     o.Shape = base.fuse(upright)
     finish(doc, 'PR-018_Clips.FCStd', color=(1.00, 0.65, 0.25))
 

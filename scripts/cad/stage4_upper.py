@@ -72,7 +72,7 @@ def build_gantry():
     bridge = bridge.cut(Part.makeCylinder(55.0, 15.0, V(80.0, 0.0, 233.0)))
     for (hx, hy) in [(141.65, 35.37), (141.65, -35.37),
                      (28.0, 32.0), (28.0, -32.0), (132.0, 32.0), (132.0, -32.0),
-                     (135.0, 25.0), (135.0, -25.0), (145.0, 25.0), (145.0, -25.0)]:
+                     (131.0, 25.0), (131.0, -25.0), (141.0, 25.0), (141.0, -25.0)]:
         bridge = vhole(bridge, M3, hx, hy, 233.0, 248.0)
     solid = parts[0].fuse(parts[1]).fuse(bridge)
     o = doc.addObject('Part::Feature', 'Gantry')
@@ -92,21 +92,26 @@ def panel_solid():
 def build_panels():
     # PR-002: 3 skirt panels (open frame; drop station stays open).
     # One file each: ring-arranged panels cannot share a printable file.
+    # Panel_3 (front, -Y) gets the OLED window; the bezel seats from inside.
     base = panel_solid()
     for i, ang in enumerate((90.0, 180.0, 270.0)):
         d = fresh_doc('PR002_Panel_%d' % (i + 1))
+        shape = base.rotated(V(0, 0, 0), V(0, 0, 1), ang - 90.0)
+        if i == 2:
+            shape = shape.cut(Part.makeBox(34.0, 10.0, 18.0, V(-17.0, -150.0, 41.0)))
         o = d.addObject('Part::Feature', 'SkirtPanel')
-        o.Shape = base.rotated(V(0, 0, 0), V(0, 0, 1), ang - 90.0)
+        o.Shape = shape
         finish(d, 'PR-002_Panel_%d.FCStd' % (i + 1))
 
 
 def build_camera_bracket():
     # PR-020: foot + vertical + top + 2 gussets, fused (master frame).
+    # Foot keeps inside the base silhouette (corner r149.7 < 150).
     doc = fresh_doc('PR020_CameraBracket')
-    foot = Part.makeBox(22.0, 70.0, 4.0, V(128.0, -35.0, 248.0))
-    for (hx, hy) in [(135.0, 25.0), (135.0, -25.0), (145.0, 25.0), (145.0, -25.0)]:
+    foot = Part.makeBox(22.0, 66.0, 4.0, V(124.0, -33.0, 248.0))
+    for (hx, hy) in [(131.0, 25.0), (131.0, -25.0), (141.0, 25.0), (141.0, -25.0)]:
         foot = vhole(foot, M3, hx, hy, 248.0, 252.0)
-    vert = Part.makeBox(4.0, 60.0, 98.0, V(138.0, -30.0, 252.0))
+    vert = Part.makeBox(4.0, 60.0, 92.0, V(138.0, -30.0, 252.0))
     top = Part.makeBox(97.0, 60.0, 4.0, V(45.0, -30.0, 340.0))
     top = top.cut(Part.makeCylinder(10.0, 4.0, V(80.0, 0.0, 340.0)))
     for (hx, hy) in [(64.0, 11.0), (64.0, -11.0), (96.0, 11.0), (96.0, -11.0)]:
@@ -136,14 +141,16 @@ def build_camera_bezel():
 
 def build_led_ring():
     # PR-022: LED annulus on the drop axis + 2 arms to the bracket (master frame).
+    # Ring outer r50 stops 8 mm short of the bracket vertical (x138); only the
+    # arms touch it. Bore r40 still passes the 60 mm item.
     doc = fresh_doc('PR022_LEDRing')
-    ring = Part.makeCylinder(65.0, 6.0, V(80.0, 0.0, 300.0))
-    ring = ring.cut(Part.makeCylinder(55.0, 6.0, V(80.0, 0.0, 300.0)))
+    ring = Part.makeCylinder(50.0, 6.0, V(80.0, 0.0, 300.0))
+    ring = ring.cut(Part.makeCylinder(40.0, 6.0, V(80.0, 0.0, 300.0)))
     for k in range(6):
-        lx, ly = polar(60.0, 60.0 * k)
+        lx, ly = polar(45.0, 60.0 * k)
         ring = ring.cut(Part.makeCylinder(2.6, 6.0, V(80.0 + lx, ly, 300.0)))
-    for sy in (24.0, -28.0):
-        arm = Part.makeBox(14.0, 8.0, 4.0, V(128.0, sy, 298.0))
+    for sy in (6.0, -14.0):
+        arm = Part.makeBox(12.0, 8.0, 4.0, V(126.0, sy, 298.0))
         ring = ring.fuse(arm)
     o = doc.addObject('Part::Feature', 'LEDRing')
     o.Shape = ring
@@ -151,29 +158,32 @@ def build_led_ring():
 
 
 def build_hall_bracket():
-    # PR-023: base-mounted stalk at (100,0); arm over carrier; sensor 2 mm
-    # above the under-carrier magnet. Base slots allow radial adjustment.
+    # Base-mounted stalk at (100,0); sensor head faces UP at the
+    # under-carrier magnet (module face 4 mm below magnet face).
+    # Master-frame coordinates; base slots allow radial adjustment.
     doc = fresh_doc('PR023_HallBracket')
-    base = Part.makeBox(19.0, 18.0, 4.0, V(129.0, -9.0, 20.0))
-    for hy in (-6.0, 6.0):
-        slot = Part.makeBox(8.0, 3.2, 4.0, V(136.0, hy - 1.6, 20.0))
-        slot = slot.fuse(Part.makeCylinder(1.6, 4.0, V(136.0, hy, 20.0)))
-        slot = slot.fuse(Part.makeCylinder(1.6, 4.0, V(144.0, hy, 20.0)))
+    base = Part.makeBox(30.0, 20.0, 4.0, V(85.0, -10.0, 20.0))
+    for cx in (92.0, 108.0):  # slots contain the base studs, +/-5 radial play
+        slot = Part.makeBox(10.0, 3.2, 4.0, V(cx - 5.0, -1.6, 20.0))
+        slot = slot.fuse(Part.makeCylinder(1.6, 4.0, V(cx - 5.0, 0.0, 20.0)))
+        slot = slot.fuse(Part.makeCylinder(1.6, 4.0, V(cx + 5.0, 0.0, 20.0)))
         base = base.cut(slot)
-    stalk = Part.makeBox(6.0, 8.0, 66.0, V(142.0, -4.0, 24.0))
-    arm = Part.makeBox(31.0, 8.0, 4.0, V(117.0, -4.0, 88.0))
-    arm = vhole(arm, 2.5, 122.0, 0.0, 88.0, 92.0)
-    arm = vhole(arm, 2.5, 128.0, 0.0, 88.0, 92.0)
+    stalk = Part.makeBox(10.0, 10.0, 28.0, V(95.0, -5.0, 24.0))
+    head = Part.makeBox(24.0, 16.0, 4.0, V(88.0, -8.0, 52.0))
+    head = vhole(head, 2.5, 94.0, 0.0, 52.0, 56.0)
+    head = vhole(head, 2.5, 106.0, 0.0, 52.0, 56.0)
     o = doc.addObject('Part::Feature', 'HallBracket')
-    o.Shape = base.fuse(stalk).fuse(arm)
+    o.Shape = base.fuse(stalk).fuse(head)
     finish(doc, 'PR-023_HallBracket.FCStd', color=(0.60, 0.85, 0.60))
 
 
 def build_magnet_holder():
-    # PR-024: hangs below Q1 carrier at (100,0); origin = carrier bottom plane.
+    # Hangs below Q1 carrier at (100,0); origin = carrier-bottom contact.
+    # Magnet face 4 mm above the sensor module face. Screws M3x8 max
+    # (tips stop 5 mm below pocket floor and bin flange).
     doc = fresh_doc('PR024_MagnetHolder')
     disc = Part.makeCylinder(16.0, 3.0, V(0, 0, -3.0))
-    cup = Part.makeCylinder(7.0, 3.0, V(0, 0, -6.0))
+    cup = Part.makeCylinder(7.0, 4.0, V(0, 0, -6.0))
     cup = cup.cut(Part.makeCylinder(2.6, 3.0, V(0, 0, -6.0)))
     solid = disc.fuse(cup)
     for hx in (-12.0, 12.0):
@@ -199,8 +209,10 @@ def build_oled_bezel():
 
 def build_elex_tray():
     # PR-026: under-base electronics tray (local origin, assembly at z=-20).
+    # Center bore reserves the stepper-motor cavity (motor TBD, mount at z-6).
     doc = fresh_doc('PR026_ElexTray')
     tray = Part.makeBox(200.0, 160.0, 4.0, V(-100.0, -80.0, 0.0))
+    tray = tray.cut(Part.makeCylinder(30.0, 4.0, V(0, 0, 0)))
     for hx in (-85.0, 85.0):
         for hy in (-65.0, 65.0):
             tray = vhole(tray, M3, hx, hy, 0.0, 4.0)
@@ -212,9 +224,11 @@ def build_elex_tray():
 
 def build_bottom_cover():
     # PR-027: 4 quarter-discs (halves still span 280), one file each.
+    # Center bore continues the motor cavity; per-quarter bolt hits a foot.
     for i, rot in enumerate((0.0, 90.0, 180.0, 270.0)):
         d = fresh_doc('PR027_CoverQ_%d' % (i + 1))
         q = Part.makeCylinder(140.0, 3.0, V(0, 0, 0), V(0, 0, 1), 90.0)
+        q = q.cut(Part.makeCylinder(30.0, 3.0, V(0, 0, 0)))
         q = q.rotate(V(0, 0, 0), V(0, 0, 1), rot)
         hx, hy = polar(120.0, 45.0 + rot)
         q = vhole(q, M3, hx, hy, 0.0, 3.0)

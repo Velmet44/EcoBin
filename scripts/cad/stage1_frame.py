@@ -22,11 +22,12 @@ OUT_DIR = 'E:/Project/EcoBin/3D-Design/parts/'
 
 # ---- mirrored master values (see 00_Master Params) ----
 OVERALL_DIA = 300.0
-ROTOR_DIA = 260.0
+ROTOR_DIA = 280.0  # informational; rotor quadrants are built in stage2
 BASE_THK = 20.0
 # ---- TBD placeholders (bearing + coupling not yet selected) ----
 BRG_SEAT_BORE = 70.0   # TBD: turntable bearing OD (BOM-020 open)
-SEAT_H = 48.0          # TBD: seat height follows bearing + stack
+SEAT_H = 40.0          # boss top lands exactly on carrier bottom (20+8+40=68);
+                       # TBD bearing occupies the r35 bore below the hub barrel
 NEMA_BCD = 31.0        # NEMA-17 standard M3 pattern
 NEMA_BODY = 42.0
 MOTOR_SHAFT = 5.0      # NEMA-17 standard shaft dia
@@ -80,11 +81,12 @@ def build_base():
         pts.append((146.0 * _m.cos(a), 146.0 * _m.sin(a)))  # gantry post M3 from below
     for ang in (90.0, 180.0, 270.0):
         for lx in (-30.0, 30.0):
-            ra = _m.radians(ang)
+            ra = _m.radians(ang - 90.0)  # match panel rotation R(ang-90) in stage4
             x, y = lx, 146.0
             pts.append((x * _m.cos(ra) - y * _m.sin(ra),
                         x * _m.sin(ra) + y * _m.cos(ra)))
-    pts += [(140.0, 6.0), (140.0, -6.0)]
+    pts += [(92.0, 0.0), (108.0, 0.0)]  # hall stalk base
+    pts += [(20.0, 20.0), (20.0, -20.0), (-20.0, 20.0), (-20.0, -20.0)]  # stepper-mount M3
     for k in range(4):
         fa = _m.radians(45.0 + 90.0 * k)
         pts.append((120.0 * _m.cos(fa), 120.0 * _m.sin(fa)))

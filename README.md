@@ -11,8 +11,22 @@ Locked layout (owner decisions): Ø300 × 350 mm envelope, 60 mm / 150 g max ite
 - [x] Stage 2 — carrier + chambers: `PR-011_Carrier_Q1–Q4` quadrants, `PR-014–017_Chamber_A–D` lift-out bins, `PR-018_Clips`.
 - [x] Stage 3 — tray + gate: `PR-005_TrayBody`, `PR-006_ScaleSupport` (cell M5 pattern TBD), `PR-007_Flap`, `PR-008_Hinges`, `PR-009_ServoMount` (ear slots TBD), `PR-010_Linkage`, `PR-004_DropGuide`.
 - [x] Stage 4 — mounts + upper structure: `PR-003_Gantry` (posts + bridge), `PR-002_Panel_1–3` skirts, `PR-020/021` camera bracket + bezel, `PR-022_LEDRing`, `PR-023_HallBracket` (under-carrier sensing), `PR-024_MagnetHolder`, `PR-025_OLEDBezel`, `PR-026_ElexTray`, `PR-027_CoverQ_1–4`, `PR-028_Feet`, `PR-029_Clips`.
-- [ ] Stage 5 — linked `EcoBin_Top` assembly.
+- [x] Stage 5 — linked `EcoBin_Top` assembly (`3D-Design/assemblies/EcoBin_Top.FCStd`, 55 `App::Link`s, zero duplicated geometry). Proof log below.
 - [ ] Stage 6 — print release + spool roll-up.
+
+### Stage 5 assembly proof log (2026-10-07)
+
+`scripts/cad/stage5_assembly.py` rebuilds only the assembly doc from the part files, then asserts every fit numerically (re-runner output, all pass):
+
+- 4 bins on index (±80, 0)/(0, ±80), mouths coplanar at datum 230; bin flanges drop into the Ø112 carrier pockets (face contact).
+- Hinge pin line shared (y=-40, z=247); pin bosses press into the guide-tube wall (intended 0.00 interference).
+- Hall air gap 2.0 mm (band 1.5–6); hall stalk clears the rotor by 12.
+- Drop-path chain 76/86/94/110 concentric (tray/flap/guide-tube/bridge mouth, 2.0 wall clearance); flap corner clears the bore by 0.8 (swing sweep stays a bench test, ME-003).
+- Mounting stack seats face-to-face (all 0.00): seat/base, mount/base, carrier/seat boss-top, hub/carrier, flange/bridge, support/flange, tray/support, servo/tray, linkage rest, LED-ring arms/bracket, OLED/panel window, 8 retention stops/carrier, 8 cable clips/elex tray.
+- Clearances: rotor/post 2.0, bin-top/bridge 5.8, clips/bins worst 5.6, mount/elex 10.
+- Bounding box x[±150] y[±150] z[-25, 347] inside the Ø300 × 350 envelope (box criterion ±150.5 / -25.5–350.5).
+
+Assembly notes: one `PinBoss` file instanced twice; one `ClipMaster` file instanced 8× (print one, make eight); feet/cover quarters instanced from their files. Motor cavity Ø60 reserved through cover/elex/base into the mount boss hole; bearing, coupling, and NEMA motor are still TBD picks with no geometry clashes today. Provisional fastener schedule: flange↔bridge M3×20 (BOM-027), support↔tray M3×20 (BOM-027), support↔bridge M3×25 (BOM-028, nut access under bridge to confirm at build); mount↔base, feet stack, and hinge pin are longer-length M3 classes with SKUs still open (hinge pin fixed as M3×50 in BOM-031).
 
 ## Buy the demonstrator BOM
 
