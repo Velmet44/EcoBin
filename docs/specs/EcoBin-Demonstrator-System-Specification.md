@@ -559,7 +559,7 @@ Every individual print must fit the printer envelope in the intended orientation
 | Part ID | Printed part | Qty. | Split/assembly rule |
 |---|---|---:|---|
 | PR-001 | Lower chassis/base frame | 1 assembly | Print as one if within envelope; otherwise split into 2–4 keyed panels/segments and bolt together |
-| PR-002 | Outer enclosure side panels | 4 or more | Separate flat/curved panels; split vertically if any panel exceeds 250 mm height |
+| PR-002 | Outer enclosure side panels | 3 or more (open-frame demo configuration; drop station stays open) | Separate flat/curved panels; split vertically if any panel exceeds 250 mm height |
 | PR-003 | Fixed upper deck/top plate | 1 assembly | Split into 2 or 4 keyed sections if larger than target footprint |
 | PR-004 | Fixed drop-station collar/guide | 1 | One short part preferred; split upper/lower if over height limit |
 | PR-005 | Input tray body | 1 | One piece if within envelope; otherwise split into keyed halves with underside fasteners |

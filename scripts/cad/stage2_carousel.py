@@ -27,7 +27,7 @@ CARRIER_T = 12.0   # CarrierThk
 MOUTH = 100.0      # MouthDia / ChamberDia
 CHAMBER_H = 150.0  # ChamberH
 WALL = 3.0         # FDM wall for shared-lab printer
-FLANGE_D = 112.0   # bin foot flange
+FLANGE_D = 110.0   # bin foot flange (pocket gets +2 drop-in clearance)
 FLANGE_T = 5.0
 M3 = 3.2           # clearance drill (tap at build where noted)
 

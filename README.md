@@ -10,7 +10,7 @@ Locked layout (owner decisions): Ø300 × 350 mm envelope, 60 mm / 150 g max ite
 - [x] Stage 1 — frame / bearing / motor mount: `PR-001_BaseFrame`, `PR-013_BearingSeat` (Ø70 placeholder bore — bearing pick open), `PR-019_StepperMount` (NEMA-17 31 mm BCD), `PR-012_Hub` (Ø5 shaft bore + M3 set-screw drill).
 - [x] Stage 2 — carrier + chambers: `PR-011_Carrier_Q1–Q4` quadrants, `PR-014–017_Chamber_A–D` lift-out bins, `PR-018_Clips`.
 - [x] Stage 3 — tray + gate: `PR-005_TrayBody`, `PR-006_ScaleSupport` (cell M5 pattern TBD), `PR-007_Flap`, `PR-008_Hinges`, `PR-009_ServoMount` (ear slots TBD), `PR-010_Linkage`, `PR-004_DropGuide`.
-- [ ] Stage 4 — sensor/camera/display mounts + trim.
+- [x] Stage 4 — mounts + upper structure: `PR-003_Gantry` (posts + bridge), `PR-002_Panel_1–3` skirts, `PR-020/021` camera bracket + bezel, `PR-022_LEDRing`, `PR-023_HallBracket` (under-carrier sensing), `PR-024_MagnetHolder`, `PR-025_OLEDBezel`, `PR-026_ElexTray`, `PR-027_CoverQ_1–4`, `PR-028_Feet`, `PR-029_Clips`.
 - [ ] Stage 5 — linked `EcoBin_Top` assembly.
 - [ ] Stage 6 — print release + spool roll-up.
 

@@ -84,15 +84,14 @@ def build_scale_support():
 
 
 def build_flap():
-    # Edge-hinged trapdoor: hinge axis along X at the -Y rim (y=-FLAP_D/2).
-    # Lugs at x=+/-25; pin bore along X; blocks in PR-008 share this frame.
+    # Edge-hinged trapdoor, single lug + single diamond block (PR-008).
+    # Shared pin line: local y=-34, z=4 (world y=-34, z=244 at assembly).
+    # Origin = flap center when closed.
     doc = fresh_doc('PR007_Flap')
     disc = Part.makeCylinder(FLAP_D / 2.0, 4.0, V(0, 0, 0))
-    pin_y = -40.0  # hinge line just outside the 76 opening rim
-    for sx in (-1.0, 1.0):
-        lug = Part.makeBox(12.0, 14.0, 8.0, V(sx * 25.0 - 6.0, -46.0, 0.0))
-        disc = disc.fuse(lug)
-    pin = Part.makeCylinder(1.6, 100.0, V(-50.0, pin_y, 4.0))
+    lug = Part.makeBox(10.0, 16.0, 8.0, V(16.0, -47.0, 0.0))
+    disc = disc.fuse(lug)
+    pin = Part.makeCylinder(1.6, 40.0, V(10.0, -34.0, 4.0))
     pin = pin.rotate(V(0, 0, 4.0), V(0, 1, 0), 90.0)
     disc = disc.cut(pin)
     o = doc.addObject('Part::Feature', 'TrapdoorFlap')
@@ -101,19 +100,16 @@ def build_flap():
 
 
 def build_hinges():
-    # Same frame as the flap: hinge line y=-FLAP_D/2, pin axis along X at z=4.
-    # Blocks sit outboard of the flap lugs; pin bore passes pin + lug bores.
+    # SINGLE 7 mm diamond block on the pin line (fits the mouth-bore band).
+    # Assembly places its origin at world (117, -33.5, 234); pin = M3 screw.
     doc = fresh_doc('PR008_HingeSupports')
-    pin_y = -40.0  # must match flap hinge line
-    for i, sx in enumerate((-40.0, 40.0)):
-        blk = Part.makeBox(14.0, 14.0, 14.0, V(sx - 7.0, pin_y - 7.0, -8.0))
-        pin = Part.makeCylinder(1.6, 16.0, V(sx - 8.0, pin_y, 4.0))
-        pin = pin.rotate(V(0, 0, 4.0), V(0, 1, 0), 90.0)
-        blk = blk.cut(pin)
-        blk = blk.cut(Part.makeCylinder(M3 / 2.0, 14.0, V(sx, pin_y - 3.0, -8.0)))
-        blk = blk.cut(Part.makeCylinder(M3 / 2.0, 14.0, V(sx, pin_y + 3.0, -8.0)))
-        o = doc.addObject('Part::Feature', 'HingeSupport_%s' % ('L' if i == 0 else 'R'))
-        o.Shape = blk
+    blk = Part.makeBox(7.0, 7.0, 14.0, V(-3.5, -3.5, 0.0))
+    blk = blk.rotate(V(0, 0, 0), V(0, 0, 1), 45.0)
+    pin = Part.makeCylinder(1.6, 20.0, V(-10.0, -0.5, 10.0))
+    pin = pin.rotate(V(0, 0, 10.0), V(0, 1, 0), 90.0)
+    blk = blk.cut(pin)
+    o = doc.addObject('Part::Feature', 'HingeBlock')
+    o.Shape = blk
     finish(doc, 'PR-008_HingeSupports.FCStd')
 
 
@@ -147,10 +143,13 @@ def build_linkage():
 
 
 def build_guide():
+    # Flange sits on bridge top; tube hangs below into the bridge mouth.
+    # Assembly places flange base at bridge-top level.
     doc = fresh_doc('PR004_DropGuide')
-    tube = Part.makeCylinder(55.0, 40.0, V(0, 0, 0))
-    tube = tube.cut(Part.makeCylinder(GUIDE_ID / 2.0, 40.0, V(0, 0, 0)))
+    tube = Part.makeCylinder(53.0, 18.0, V(0, 0, -18.0))
+    tube = tube.cut(Part.makeCylinder(GUIDE_ID / 2.0, 18.0, V(0, 0, -18.0)))
     flange = Part.makeCylinder(65.0, 5.0, V(0, 0, 0))
+    flange = flange.cut(Part.makeCylinder(GUIDE_ID / 2.0, 5.0, V(0, 0, 0)))
     solid = tube.fuse(flange)
     solid = bolt_circle(solid, M3, 118.0, 4, 0.0, 5.0)
     o = doc.addObject('Part::Feature', 'DropGuide')

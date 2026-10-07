@@ -69,8 +69,27 @@ def build_base():
     doc = fresh_doc('PR001_BaseFrame')
     disc = Part.makeCylinder(OVERALL_DIA / 2.0, BASE_THK, V(0, 0, 0))
     disc = disc.cut(Part.makeCylinder(30.0, BASE_THK, V(0, 0, 0)))  # hub/wiring clearance
-    disc = hole_plate(disc, M3_CLEAR, 280.0, 6, 0.0, BASE_THK)      # trim/panel screws
+    disc = hole_plate(disc, M3_CLEAR, 280.0, 6, 0.0, BASE_THK)      # spare trim screws
     disc = hole_plate(disc, M3_CLEAR, 120.0, 4, 0.0, BASE_THK)      # bearing-seat bolts
+    # Gantry post feet (r146, +/-14 deg, tangent +/-5), skirt panels
+    # ((+-30, 146) at 90/180/270), hall stalk (91/109, 0), feet (r120 @45).
+    import math as _m
+    pts = []
+    for sa in (14.0, -14.0):
+        a = _m.radians(sa)
+        pts.append((146.0 * _m.cos(a), 146.0 * _m.sin(a)))  # gantry post M3 from below
+    for ang in (90.0, 180.0, 270.0):
+        for lx in (-30.0, 30.0):
+            ra = _m.radians(ang)
+            x, y = lx, 146.0
+            pts.append((x * _m.cos(ra) - y * _m.sin(ra),
+                        x * _m.sin(ra) + y * _m.cos(ra)))
+    pts += [(140.0, 6.0), (140.0, -6.0)]
+    for k in range(4):
+        fa = _m.radians(45.0 + 90.0 * k)
+        pts.append((120.0 * _m.cos(fa), 120.0 * _m.sin(fa)))
+    for (x, y) in pts:
+        disc = disc.cut(Part.makeCylinder(M3_CLEAR / 2.0, BASE_THK, V(x, y, 0.0)))
     o = doc.addObject('Part::Feature', 'BaseFrame')
     o.Shape = disc
     finish(doc, 'PR-001_BaseFrame.FCStd')
